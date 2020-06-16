@@ -1,4 +1,4 @@
-# Team 6: Mina Lee, Gel Dalit, Sushil Karki cs157a-cr-eclipse-git
+# Team 7: Mina Lee, Gel Dalit, Sushil Karki cs157a-cr-eclipse-git
 
 Cooking Recipes
 Team 6: Mina Lee, Gel Dalit, Sushil Karki
