@@ -11,4 +11,7 @@ public class LoginPage {
     public void validatePassword(){
 
     }
+    public void register(){
+
+    }
 }
