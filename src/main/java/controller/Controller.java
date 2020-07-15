@@ -60,7 +60,6 @@ public class Controller {
         statement = connection.createStatement();
         statement.execute(createSql);
 
-
         statement.close();// Close connectionconnection.close();}}
     }
     //XML required

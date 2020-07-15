@@ -37,4 +37,5 @@ public class Recipe {
     public void setPrivacy(int privacy) {
         this.privacy = privacy;
     }
+
 }
