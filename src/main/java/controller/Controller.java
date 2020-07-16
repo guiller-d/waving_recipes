@@ -3,6 +3,8 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
+import java.util.ArrayList;
+
 import models.Account;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -15,6 +17,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 public class Controller {
+
+    ArrayList<Account> accountArrayList = new ArrayList<Account>();
 
     public Controller(){
 
@@ -78,7 +82,8 @@ public class Controller {
         Connection connection = startConnection();
         String insertSql = "INSERT INTO account (account_id, username, login) " + "VALUES ('account_id', 'username', 'login')";
         Statement statement = connection.createStatement();
-        statement.execute(insertSql);// Query
+        statement.execute(insertSql);
+        statement.close();
     }
     //XML required
     public void readAccountXML(){
@@ -89,6 +94,7 @@ public class Controller {
             Document doc = builder.parse("/Users/guillerdalit/Desktop/Workplace/IntelliJ-projects/cs157a-cr-eclipse-git/cr-xml/account.xml");
             NodeList accountList = doc.getElementsByTagName("account");
             for (int index = 0; index < accountList.getLength(); index++){
+                Account new_account = new Account();
                 Node a = accountList.item(index);
                 if (a.getNodeType() == Node.ELEMENT_NODE){
                     Element account = (Element)a;
@@ -97,10 +103,19 @@ public class Controller {
                         Node userInfo = accountInfo.item(ndx);
                         if (userInfo.getNodeType() == Node.ELEMENT_NODE){
                             Element user = (Element)userInfo;
-                            System.out.println("Account " + user.getTagName() +  " " + user.getTextContent());
+                            if (user.getTagName().compareTo("accountID") == 0){
+                                new_account.setAccount_id(Integer.parseInt(user.getTextContent()));
+                            }
+                            else if (user.getTagName().compareTo("username") == 0){
+                                new_account.setUsername(user.getTextContent());
+                            }
+                            else if (user.getTagName().compareTo("login") == 0) {
+                                new_account.setLogin_status(Integer.parseInt(user.getTextContent()));
+                            }
                         }
                     }
                 }
+                accountArrayList.add(new_account);
             }
         }
         catch (ParserConfigurationException e){
@@ -109,6 +124,11 @@ public class Controller {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        for (int index = 0 ; index < accountArrayList.size(); index++){
+            System.out.println("Account Id " + accountArrayList.get(index).getAccount_id());
+            System.out.println("Account Username " + accountArrayList.get(index).getUsername());
+            System.out.println("Login Status " + accountArrayList.get(index).getLogin_status());
         }
     }
     public void readRecipeXML(){
