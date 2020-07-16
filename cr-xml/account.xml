@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<accounts>
+    <account>
+        <accountID>1000</accountID>
+        <username>John Cena</username>
+        <login>0</login>
+    </account>
+    <account>
+        <accountID>1001</accountID>
+        <username>John Smith</username>
+        <login>0</login>
+    </account>
+    <account>
+        <accountID>1002</accountID>
+        <username>Alex Arizona</username>
+        <login>1</login>
+    </account>
+    <account>
+        <accountID>1003</accountID>
+        <username>Cali Smith</username>
+        <login>0</login>
+    </account>
+
+</accounts>

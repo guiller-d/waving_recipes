@@ -1,8 +1,18 @@
 package controller;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 import models.Account;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 public class Controller {
 
@@ -14,6 +24,7 @@ public class Controller {
         Connection connection = startConnection();
         if (connection != null){
             createTable(connection);
+            readAccountXML();
         }
         else{
             System.out.println("Connection to the Database failed");
@@ -62,12 +73,45 @@ public class Controller {
 
         statement.close();// Close connectionconnection.close();}}
     }
-    //XML required
-    public void addAccount(){
-        //xml todo
+    public void insertAccountToSQL(int accountID, String username, int login) throws Exception {
 
+        Connection connection = startConnection();
+        String insertSql = "INSERT INTO account (account_id, username, login) " + "VALUES ('account_id', 'username', 'login')";
+        Statement statement = connection.createStatement();
+        statement.execute(insertSql);// Query
     }
-    public void addRecipe(){
+    //XML required
+    public void readAccountXML(){
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+
+        try{
+            DocumentBuilder builder =  factory.newDocumentBuilder();
+            Document doc = builder.parse("/Users/guillerdalit/Desktop/Workplace/IntelliJ-projects/cs157a-cr-eclipse-git/cr-xml/account.xml");
+            NodeList accountList = doc.getElementsByTagName("account");
+            for (int index = 0; index < accountList.getLength(); index++){
+                Node a = accountList.item(index);
+                if (a.getNodeType() == Node.ELEMENT_NODE){
+                    Element account = (Element)a;
+                    NodeList accountInfo = account.getChildNodes();
+                    for (int ndx = 0; ndx < accountInfo.getLength(); ndx++){
+                        Node userInfo = accountInfo.item(ndx);
+                        if (userInfo.getNodeType() == Node.ELEMENT_NODE){
+                            Element user = (Element)userInfo;
+                            System.out.println("Account " + user.getTagName() +  " " + user.getTextContent());
+                        }
+                    }
+                }
+            }
+        }
+        catch (ParserConfigurationException e){
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void readRecipeXML(){
 
     }
 
