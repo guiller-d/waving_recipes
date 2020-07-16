@@ -20,5 +20,10 @@
         <username>Cali Smith</username>
         <login>0</login>
     </account>
+    <account>
+        <accountID>1004</accountID>
+        <username>Sam Smith</username>
+        <login>0</login>
+    </account>
 
 </accounts>
