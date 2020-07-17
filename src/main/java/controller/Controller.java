@@ -37,7 +37,7 @@ public class Controller {
     public Connection startConnection() throws Exception {
         Connection connection = null;
         try{
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/cookingRecipe?autoReconnect=true&useSSL=false", "root", "magnolia");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/cookingrecipe?autoReconnect=true&useSSL=false", "root", "pwroot");
             System.out.println("Connection to the Database established");
         }
         catch (Exception e){
@@ -91,7 +91,7 @@ public class Controller {
 
         try{
             DocumentBuilder builder =  factory.newDocumentBuilder();
-            Document doc = builder.parse("/Users/guillerdalit/Desktop/Workplace/IntelliJ-projects/cs157a-cr-eclipse-git/cr-xml/account.xml");
+            Document doc = builder.parse("C:\\Users\\mina8\\Downloads\\CS157A\\cs157a_project\\cr-xml\\account.xml");
             NodeList accountList = doc.getElementsByTagName("account");
             for (int index = 0; index < accountList.getLength(); index++){
                 Account new_account = new Account();
