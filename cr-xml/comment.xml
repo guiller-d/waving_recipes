@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<comments>
+    <comment>
+        <commentID>1</commentID>
+        <accountID>1000</accountID>
+        <username>John Cena</username>
+        <text>I love chicken wings, how do you make it?</text>
+        <dateposted>2020-06-23 10:47:20</dateposted>
+    </comment>
+    <comment>
+        <commentID>2</commentID>
+        <accountID>1001</accountID>
+        <username>John Smith</username>
+        <text>I love Chicken Tikka Masala, Can you share the recipes?</text>
+        <dateposted>2020-06-23 05:37:25</dateposted>
+    </comment>
+</comments>

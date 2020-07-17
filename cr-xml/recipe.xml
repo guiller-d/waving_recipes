@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<recipes>
+    <recipe>
+        <recipeID>10000</recipeID>
+        <recipeName>Spicy Chicken Burger</recipeName>
+        <step>
+            Make the Frank’s® Red Hot lime crema: In a small bowl, whisk together the sour cream, Frank’s® Red Hot Sauce, lime juice and zest, and salt. Set aside. Crema can be made up to a week in advance, stored in an airtight container in the refrigerator
+            In a large bowl, combine the ground chicken, fresno chiles, Frank’s RedHot® Sauce, salt, garlic powder, and onion powder and mix gently with your hands until just combined. Divide the mixture into 4 even portions, then shape into 4-inch (10 cm) patties using wet hands to make it easier to shape.
+            Heat a 12-inch (30 cm) cast iron skillet over medium heat. When the skillet is hot, add the canola oil. When the oil starts to shimmer, add the chicken patties and cook until the bottom is golden brown and the bottom ⅓ of the patty looks cooked with a white hue, about 5 minutes. Flip the patties and add a slice of pepper Jack cheese. Reduce heat to low and continue to cook until the internal temperature of the center of the patties reaches 165°F (75°C), about 5 more minutes .
+            Assemble the burgers: Spread Frank’s® Red Hot lime crema on both sides of each bun. Place a lettuce on each bottom bun, then top with the patties, avocado, and pickled fresnos. Top with the top bun and serve immediately.
+            Enjoy!
+        </step>
+        <privacy>0</privacy>
+    </recipe>
+    <recipe>
+        <recipeID>10001</recipeID>
+        <recipeName>Tuna SandWich</recipeName>
+        <step>
+            In a medium bowl, combine the tuna, mayonnaise, celery, onion, bell pepper, capers and lemon juice.
+            Mix with a fork until thoroughly combined. Season to taste with salt and pepper.
+            Serve on the sandwich bread of your choice.
+        </step>
+        <privacy>0</privacy>
+    </recipe>
+    <recipe>
+        <recipeID>10002</recipeID>
+        <recipeName>Kimchi Fried Rice</recipeName>
+        <step>
+            In a large saucepan of 3 cups water, cook rice according to package instructions; set aside.
+            In a small bowl, whisk together kimchi juice, soy sauce, gochujang and sesame oil.
+            Heat canola oil in a large skillet over medium high heat. Add garlic, onion and ginger, and cook, stirring frequently, until onions have become translucent, about 2-3 minutes.
+            Stir in kimchi, mushrooms and carrots. Cook, stirring constantly, until mushrooms are tender, about 3-4 minutes.
+            Stir in rice, kale and kimchi juice mixture until the kale has wilted, about 2-3 minutes.
+            Serve immediately with eggs, nori strips, green onions and sesame seeds, if desired.
+        </step>
+        <privacy>1</privacy>
+    </recipe>
+</recipes>
