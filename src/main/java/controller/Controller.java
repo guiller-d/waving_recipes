@@ -33,7 +33,7 @@ public class Controller {
     public Connection startConnection() throws Exception {
         Connection connection = null;
         try{
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/cookingRecipe?autoReconnect=true&useSSL=false", "root", "magnolia");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/krishna?autoReconnect=true&useSSL=false", "root", "Krishna123@");
             System.out.println("Connection to the Database established");
         }
         catch (Exception e){
@@ -86,7 +86,7 @@ public class Controller {
 
         try{
             DocumentBuilder builder =  factory.newDocumentBuilder();
-            Document doc = builder.parse("/Users/guillerdalit/Desktop/Workplace/IntelliJ-projects/cs157a-cr-eclipse-git/cr-xml/account.xml");
+            Document doc = builder.parse("/Users/sushilkarki/Desktop/cs157a-cr-eclipse-git/cr-xml/account.xml");
             NodeList accountList = doc.getElementsByTagName("account");
             for (int index = 0; index < accountList.getLength(); index++){
                 Node a = accountList.item(index);
