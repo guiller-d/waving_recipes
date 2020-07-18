@@ -31,6 +31,7 @@ public class Controller {
             dbhandler.readXML("/Users/guillerdalit/Desktop/Workplace/IntelliJ-projects/cs157a-cr-eclipse-git/cr-xml/recipe.xml", "recipe");
             //dbhandler.readXML("/Users/guillerdalit/Desktop/Workplace/IntelliJ-projects/cs157a-cr-eclipse-git/cr-xml/password.xml", "password");
             //dbhandler.readXML("/Users/guillerdalit/Desktop/Workplace/IntelliJ-projects/cs157a-cr-eclipse-git/cr-xml/comment.xml", "comment");
+            dbhandler.insert();
             dbIsSetup = true;
         }
         else{
