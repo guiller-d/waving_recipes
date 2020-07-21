@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Log in</title>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/HttpHandler.js"></script>
+    <script src="js/script.js"></script>
+    <link rel="stylesheet" href="css/mystyle.css">
+</head>
+<body>
+<div>
+    <div class="error" id="error"></div>
+    <div class="group">
+        <div class="half edit-label">User name:</div>
+        <div class="half">
+            <input id="registerUserName" type="text" name="registerUserName" placeholder="User name">
+        </div>
+        <div class="error" id='nameError'>
+        </div>
+    </div>
+    <div class="group">
+        <div class="half edit-label">Password:</div>
+        <div class="half">
+            <input id="registerPassword" type="password" name="registerPassword" placeholder="Password">
+        </div>
+        <div class="error" id='passwordError'></div>
+    </div>
+    <div class="group">
+        <div class="half edit-label">Confirm Password:</div>
+        <div class="half">
+            <input id="registerConfirm" type="password" name="registerConfirm" placeholder="Confirm Password">
+        </div>
+        <div class="error" id='confirmError'></div>
+    </div>
+
+    <div class="position">
+        <button onclick="registerUser()">Sign up</button>
+    </div>
+
+</div>
+
+<div>
+    <div class="group">
+        <div class="half edit-label">User Name:</div>
+        <div class="half">
+            <input id="loginUserName" type="text" name="loginUserName" placeholder="User name">
+        </div>
+        <div class="error" id='loginNameError'>
+        </div>
+    </div>
+    <div class="group">
+        <div class="half edit-label">Password:</div>
+        <div class="half">
+            <input id="loginPassword" type="password" name="loginPassword" placeholder="Password">
+        </div>
+        <div class="error" id='loginPasswordError'>
+        </div>
+    </div>
+    <div class="position">
+        <button onclick="login()">Log In</button>
+    </div>
+
+</div>
+
+</body>
+
+</html>
