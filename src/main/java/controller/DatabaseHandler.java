@@ -182,7 +182,6 @@ public class DatabaseHandler{
                     if (tagName.compareTo("comment") == 0) {
                         new_password = new Password();
                     }
-
                 }
             }
         }
@@ -204,23 +203,48 @@ public class DatabaseHandler{
             System.out.println("Login Status " + recipeArrayList.get(index).getRecipeSteps());
         }
     }
-    public void insertAccountToDB(int accountID, String username, int login) throws Exception {
+
+    public void insert(){
+
+        try{
+            for (int index = 0; index < accountArrayList.size(); index++) {
+                insertAccountToDB(accountArrayList.get(index).getAccount_id(),accountArrayList.get(index).getUsername(), accountArrayList.get(index).getLogin_status());
+                System.out.println("Account Inserted to Database: "
+                        + "AccountId=" + accountArrayList.get(index).getAccount_id()
+                        +", username=" + accountArrayList.get(index).getUsername()
+                        +", login=" + accountArrayList.get(index).getLogin_status() );
+            }
+            for (int index = 0; index < recipeArrayList.size(); index++) {
+                insertRecipeToDB(recipeArrayList.get(index).getRecipeID(), recipeArrayList.get(index).getRecipeName(), recipeArrayList.get(index).getRecipeSteps(), recipeArrayList.get(index).getPrivacy());
+                System.out.println("Account Inserted to Database: "
+                        + "recipeId=" + recipeArrayList.get(index).getRecipeID()
+                        +", recipeName=" + recipeArrayList.get(index).getRecipeName()
+                        +", steps=" + recipeArrayList.get(index).getRecipeSteps()
+                        +", privacy=" + recipeArrayList.get(index).getPrivacy());
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    public void insertAccountToDB(int account_id, String username, int login) throws Exception {
 
         Connection connection = startConnection();
-        String insertSql = "INSERT INTO account (account_id, username, login) " + "VALUES ('account_id', 'username', 'login')";
+        String insertSql = "INSERT INTO account (account_id, username, login) " + "VALUES ('"+account_id+"', '"+username+"', '"+login+"')";
+        Statement statement = connection.createStatement();
+        statement.execute(insertSql);
+        statement.close();
+
+    }
+    public void insertRecipeToDB(int recipe_id, String recipe_name, String step, int privacy) throws Exception {
+
+        Connection connection = startConnection();
+        String insertSql = "INSERT INTO recipe (recipe_id, recipe_name, step, privacy) " + "VALUES ('"+recipe_id+"', '"+recipe_name+"', '"+step+"', '"+privacy+"')";
         Statement statement = connection.createStatement();
         statement.execute(insertSql);
         statement.close();
     }
-    public void insertRecipeToDB(int recipeId, String recipeName, String step, int privacy) throws Exception {
-
-        Connection connection = startConnection();
-        String insertSql = "INSERT INTO account (account_id, username, login) " + "VALUES ('account_id', 'username', 'login')";
-        Statement statement = connection.createStatement();
-        statement.execute(insertSql);
-        statement.close();
-    }
-    public void insertCommentToDB(int accountID, String username, int login) throws Exception {
+    public void insertCommentToDB(int account_id, String username, int login) throws Exception {
 
         Connection connection = startConnection();
         String insertSql = "INSERT INTO account (account_id, username, login) " + "VALUES ('account_id', 'username', 'login')";
