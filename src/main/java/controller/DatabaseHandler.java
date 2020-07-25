@@ -43,7 +43,7 @@ public class DatabaseHandler{
     public Connection startConnection() throws Exception {
         Connection connection = null;
         try{
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/cookingRecipe?autoReconnect=true&useSSL=false", "root", "magnolia");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/cookingrecipe?autoReconnect=true&useSSL=false", "root", "pwroot");
             System.out.println("Connection to the Database established");
         }
         catch (Exception e){

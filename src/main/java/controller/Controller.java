@@ -27,8 +27,8 @@ public class Controller {
         Connection connection = dbhandler.startConnection();
         if (connection != null){
             dbhandler.createTable(connection);
-            dbhandler.readXML("/Users/guillerdalit/Desktop/Workplace/IntelliJ-projects/cs157a-cr-eclipse-git/cr-xml/account.xml", "account");
-            dbhandler.readXML("/Users/guillerdalit/Desktop/Workplace/IntelliJ-projects/cs157a-cr-eclipse-git/cr-xml/recipe.xml", "recipe");
+            dbhandler.readXML("C:\\Users\\mina8\\Downloads\\CS157A\\cs157a_project\\cr-xml\\account.xml", "account");
+            dbhandler.readXML("C:\\Users\\mina8\\Downloads\\CS157A\\cs157a_project\\cr-xml\\recipe.xml", "recipe");
             //dbhandler.readXML("/Users/guillerdalit/Desktop/Workplace/IntelliJ-projects/cs157a-cr-eclipse-git/cr-xml/password.xml", "password");
             //dbhandler.readXML("/Users/guillerdalit/Desktop/Workplace/IntelliJ-projects/cs157a-cr-eclipse-git/cr-xml/comment.xml", "comment");
             dbIsSetup = true;
