@@ -6,6 +6,12 @@ public class Password {
     private String hashPassword;
     private String lastUpdate;
 
+    public Password(){
+        accountId = -1;
+        password = "N/E";
+        hashPassword = "N/E";
+        lastUpdate = "N/E";
+    }
     public int getAccountId() {
         return accountId;
     }
