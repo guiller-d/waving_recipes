@@ -11,6 +11,22 @@
     border: 1px solid #F6B379 !important;
 
 }
-.row{
+.login-container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
+.edge {
+    width: 80%;
+    position: absolute;
+    border-style: solid;
+    border-width: 5px;
+    border-radius: 4px;
+
+    border-color: #C8553D;
+}
+.main-background {
+    background-color: rgba(200, 200, 200, 0.8);
 }
