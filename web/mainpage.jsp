@@ -66,7 +66,7 @@
                 <div class="card-body">
                     <h5 class="card-title">recipe title</h5>
                    <form action="/mainpage" method="post">
-                        <button type="submit" name="10000">GO to recipe
+                        <button class="btn btn-primary" type="submit" name="10000">GO to recipe
                         </button>
                    </form>
 
