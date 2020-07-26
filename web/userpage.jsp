@@ -1,11 +1,19 @@
-<!DOCTYPE html>
+<%--
+  Created by IntelliJ IDEA.
+  User: mina8
+  Date: 7/26/2020
+  Time: 12:02 AM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <title>Cooking Recipe</title>
     <link rel="icon shortcut" href="./img/icon.png">
-    <link rel="stylesheet" href="Style.css">
+    <link rel="stylesheet" href="../src/main/java/webapp/Style.css">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <!-- Optional JavaScript -->
