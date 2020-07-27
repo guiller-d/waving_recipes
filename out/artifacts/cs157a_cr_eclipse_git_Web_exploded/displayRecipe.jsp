@@ -17,8 +17,6 @@
     Mainpage mainpageHandler = new Mainpage();
 %>
 <h1> <% out.println(mainpageHandler.getRecipeID()); %> </h1>
-<h1> <% out.println(mainpageHandler.getRecipeID()); %> </h1>
-<h1> <% out.println(mainpageHandler.getRecipeID()); %> </h1>
 <h1> <% out.println(mainpageHandler.getRecipeName()); %> </h1>
 <h1> <% out.println(mainpageHandler.getRecipePrivacy()); %> </h1>
 <h1> <% out.println(mainpageHandler.getRecipeStep()); %> </h1>

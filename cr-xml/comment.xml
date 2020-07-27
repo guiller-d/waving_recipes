@@ -1,17 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <comments>
+
     <comment>
-        <commentID>1</commentID>
         <accountID>1000</accountID>
+        <recipeID>10000</recipeID>
         <username>John Cena</username>
         <text>I love chicken wings, how do you make it?</text>
-        <dateposted>2020-06-23 10:47:20</dateposted>
+        <dateposted>2020-06-23</dateposted>
     </comment>
+
     <comment>
-        <commentID>2</commentID>
         <accountID>1001</accountID>
+        <recipeID>10000</recipeID>
         <username>John Smith</username>
         <text>I love Chicken Tikka Masala, Can you share the recipes?</text>
-        <dateposted>2020-06-23 05:37:25</dateposted>
+        <dateposted>2020-06-23</dateposted>
     </comment>
+
+    <comment>
+        <accountID>1002</accountID>
+        <recipeID>10001</recipeID>
+        <username>Alex Arizona</username>
+        <text>I love Chicken Tikka Masala, Can you share the recipes?</text>
+        <dateposted>2020-06-23</dateposted>
+    </comment>
+
+    <comment>
+        <accountID>1003</accountID>
+        <recipeID>10000</recipeID>
+        <username>Cali Smith</username>
+        <text>YUM YUM...Chicken Dum Biryani, how do you make it?</text>
+        <dateposted>2020-06-24</dateposted>
+    </comment>
+
+    <comment>
+        <accountID>1004</accountID>
+        <recipeID>10000</recipeID>
+        <username>Karen Cena</username>
+        <text>Delicious Breakfast Burrito, Share your recipes</text>
+        <dateposted>2020-06-24</dateposted>
+    </comment>
+
+    <comment>
+        <accountID>1005</accountID>
+        <recipeID>10000</recipeID>
+        <username>Demi Gonzales</username>
+        <text>I love chicken mushroom pizza, how do you make it?</text>
+        <dateposted>2020-06-25</dateposted>
+    </comment>
+
+    <comment>
+        <accountID>1006</accountID>
+        <recipeID>10001</recipeID>
+        <username>Belarus King</username>
+        <text>WOW my favourite chicken curry, how do you make it?</text>
+        <dateposted>2020-06-25</dateposted>
+    </comment>
+
+    <comment>
+        <accountID>1007</accountID>
+        <recipeID>10000</recipeID>
+        <username>Sarah Jen</username>
+        <text>All time favourite Appetizer Samosa chat, how do you make it?</text>
+        <dateposted>2020-06-25</dateposted>
+    </comment>
+
+    <comment>
+        <accountID>1008</accountID>
+        <recipeID>10000</recipeID>
+        <username>Damian Richards</username>
+        <text>Amazing Food!!!</text>
+        <dateposted>2020-06-26</dateposted>
+    </comment>
+
+    <comment>
+        <accountID>1009</accountID>
+        <recipeID>10000</recipeID>
+        <username>Bob Junior</username>
+        <text>I love chicken momo, how do you make it?</text>
+        <dateposted>2020-06-27</dateposted>
+    </comment>
+
 </comments>

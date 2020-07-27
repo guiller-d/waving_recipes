@@ -66,13 +66,13 @@ public class DBHandler {
         statement.execute(createSql);
 
         // Create ingredient table
-        createSql = "CREATE TABLE IF NOT EXISTS ingredient (recipe_id INT NOT NULL, "
+        createSql = "CREATE TABLE IF NOT EXISTS access (recipe_id INT NOT NULL, "
                 + "  account_id INT NOT NULL)";
         statement = connection.createStatement();
         statement.execute(createSql);
 
         // Create access table
-        createSql = "CREATE TABLE IF NOT EXISTS accces (recipe_id INT NOT NULL, "
+        createSql = "CREATE TABLE IF NOT EXISTS ingredient (recipe_id INT NOT NULL, "
                 + "  ingredient VARCHAR(2000) NOT NULL)";
         statement = connection.createStatement();
         statement.execute(createSql);
