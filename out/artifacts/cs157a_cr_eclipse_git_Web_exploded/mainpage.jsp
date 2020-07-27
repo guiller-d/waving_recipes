@@ -1,4 +1,7 @@
-<%--
+<%@ page import="controller.DBHandler" %>
+<%@ page import="java.sql.Connection" %>
+<%@ page import="java.sql.Statement" %>
+<%@ page import="java.sql.ResultSet" %><%--
   Created by IntelliJ IDEA.
   User: guillerdalit
   Date: 7/24/20
@@ -19,8 +22,6 @@
 <!-- https://coolors.co/588b8b-ffffff-ffd5c2-f28f3b-c8553d -->
 
 <body>
-
-
 
 <!--navbar-->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -57,53 +58,57 @@
     </form>
 </div>
 
-<!--display recipes-->
-<div class="container" style="margin: 15px;">
-    <div class="row">
-        <div class="col" name ="10000">
-            <div class="card" style="width: 18rem;">
-                <img src="..." class="card-img-top" alt="...">
-                <% System.out.println("data"); %>
-                <div class="card-body">
-                    <h5 class="card-title">recipe title</h5>
-                   <form action="/mainpage" method="post">
-                        <button class="btn btn-primary" type="submit" name="10000">GO to recipe
-                        </button>
-                   </form>
+<%
+    DBHandler dbHandlerhand =  new DBHandler();
 
-                </div>
-            </div>
-        </div>
-        <div class="col" name ="10001">
-            <div class="card" style="width: 18rem;">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">recipe title</h5>
-                    <a href="#" class="btn btn-primary">Go to recipe</a>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card" style="width: 18rem;">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">recipe title</h5>
-                    <a href="#" class="btn btn-primary">Go to recipe</a>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card" style="width: 18rem;">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">recipe title</h5>
-                    <a href="#" class="btn btn-primary">Go to recipe</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+    try {
+        Connection connection = dbHandlerhand.startConnection();
 
+        out.println("Initial entries in table \"emp\": <br/>");
+        Statement stmt = connection.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT * FROM recipe");
+        int recipeID;
+        String recipeName;
 
+        int index = 0;
+        out.println("<div class=\"container\" style=\"margin: 15px;>\n");
+        out.println( "<div class=\"row\">\n");
+        while (rs.next()) {
+            recipeID = rs.getInt("recipe_id");
+            recipeName = rs.getString("recipe_name");
+            System.out.println("RecipeID from db " + recipeID);
+            //out.println(recipeID + "<br/><br/>");
+            if ((index % 4) == 0 || index == 0){
+                out.println( "</div>\n");
+                out.println( "<div class=\"row\">\n");
+                out.println(index % 4);
+            }
+            out.println( "<div class=\"col\" name =''"+recipeID+"'" + ">\n" +
+                    "        <div class=\"card\" style=\"width: 15rem;\">\n" +
+                    "             <img src='"+recipeID+"'" +" class=\"card-img-top\" alt=\"...\">\n" +
+                    "               <div class=\"card-body\">\n" +
+                    "                   <h5 class=\"card-title\">'"+recipeName+"'</h5>\n" +
+                    "                   <form action=\"/mainpage\" method=\"post\">\n" +
+                    "                        <button type=\"submit\" name='"+recipeID+"'" + ">GO to recipe\n" +
+                    "                        </button>\n" +
+                    "                   </form>       " +
+                    "                 </div>\n" +
+                    "            </div>\n" +
+                    "        </div>\n");
+            if ((index % 4) == 3){
+                out.println(index % 4);
+                out.println( "</div>\n");
+            }
+            index++;
+        }
+        out.println( "</div>\n");
+
+        rs.close();
+        stmt.close();
+        connection.close();
+    } catch(Exception e) {
+        out.println("SQLException caught: " + e.getMessage());
+    }
+%>
 </body>
 </html>
