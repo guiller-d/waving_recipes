@@ -9,8 +9,25 @@
 <html>
 <head>
     <title>Registration Page</title>
+    <link rel="stylesheet" href="register.css">
 </head>
 <body>
-<h1>Registration Page</h1>
+<form action="/register" method="post">
+    <div class="top-container">
+        <h1>SIGN UP</h1>
+        <label for="uname"><b><em>Username</em></b></label>
+        <input type="text" placeholder="Enter Username" class="input-box" name="uname" required>
+        <label for="psw"><b><em>Password</em></b></label>
+        <input type="password" placeholder="Enter Password" class="input-box" name="psw" required>
+        <label for="psw"><b><em>Repeat Password</em></b></label>
+        <input type="Repeat password" placeholder="Repeat Password" class="input-box" name="psw" required>
+        <p><span><input type="checkbox"></span><em>I agree to all the terms and conditons.</em></p>
+        <button type="submit" name="Sign On">Sign Up</button>
+    </div>
+</form>
+
+<form action="/register" method="post">
+
+</form>
 </body>
 </html>

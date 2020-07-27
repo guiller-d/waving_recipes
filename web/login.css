@@ -1,0 +1,106 @@
+*{
+    margin:0 auto;
+    box-sizing:border-box;
+}
+
+body{
+    margin: 0;
+    padding:0;
+    background-image: url("login.jpg.jpeg");
+    background-color:rgba(243, 205, 169);
+    background-repeat: no-repeat;
+    font-family: sans-serif;
+    background-size: cover;
+    background-position: center ;
+
+}
+
+.form {
+    background:rgba(243, 205, 169, 0.8);
+    padding:3%;
+    position: relative;
+    margin-top:10vh;
+    margin-left:10vw;
+    max-width:40%;
+    text-align: center;
+    font-family: 'Merriweather', serif;
+    font-size: Large;
+}
+
+.form h1{
+    margin-bottom:5%;
+    color: #4CAF50;
+}
+.form label {
+    color: #4CAF50;
+    font-size: 16px;
+}
+
+.form button {
+    background-color: #4CAF50;
+    border: none;
+    color: #ffffff;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top:4%;
+    cursor: pointer;
+}
+.psw a{
+    text-decoration:none;
+    color:#4CAF50;
+}
+.psw a:hover{
+    text-decoration:underline;
+}
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    background: #f1f1f1;
+    border-radius:30px;
+    margin-top:1%;
+    margin-bottom:2%;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+    background-color: #ddd;
+    outline: none;
+}
+
+.middle-container button{
+    background-color: #4CAF50;
+    border: none;
+    color: #ffffff;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.middle-container h1{
+    color: #4CAF50;
+    margin-bottom: 0px;
+}
+
+.middle-container{
+    position: relative;
+    margin-left:10vw;
+    max-width:60%;
+    text-align: center;
+}
+
+.container{
+    /* background-color:white; */
+    font-size: 20px;
+    color: #4CAF50;
+    position:relative;
+    margin-top:5%;
+}
