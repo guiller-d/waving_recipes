@@ -4,16 +4,16 @@ import controller.DBHandler;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 
 @WebServlet(name ="mainpage")
@@ -21,10 +21,11 @@ public class Mainpage extends HttpServlet {
 
     private DBHandler dbHandler = new DBHandler();
 
-    private static int recipeID;
-    private static String recipeName;
-    private static String recipeStep;
-    private static int recipePrivacy;
+    private  int recipeID;
+    private  String recipeName;
+    private  String recipeStep;
+    private  int recipePrivacy;
+    private ArrayList<Integer> accountIDList = new ArrayList<Integer>();
 
 
     private static boolean status = false;
@@ -34,12 +35,60 @@ public class Mainpage extends HttpServlet {
         System.out.println("In here");
         PrintWriter out = response.getWriter();
         if (request.getParameter("10000") != null){
-            setRecipeInfo(10000);
-            response.sendRedirect("displayRecipe.jsp");
+            response.sendRedirect("/displayRecipe.jsp");
         }
+
+        HttpSession sess = request.getSession();
+        sess.setAttribute("recipeID", 10000);
+        /*
+        setRecipeInfo(10000);
+        String recipeName = "recipeName";
+        String recipeNameMessage = getRecipeName();
+        request.setAttribute(recipeName, recipeNameMessage);
+        String recipeStep = "recipeStep";
+        String recipeStepMessage = getRecipeStep();
+        request.setAttribute(recipeStep, recipeStepMessage);
+        setComments(10000);
+*/
+        //request.getRequestDispatcher("/displayRecipe.jsp").forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    }
+    public void setImage(int recipe_id, HttpServletRequest request){
+        try{
+            Part part = request.getPart("image");
+            InputStream inputStream = part.getInputStream();
+        }
+        catch (Exception e){
+
+        }
+    }
+    public void setComments(int recipe_id){
+        try{
+            Connection connection = dbHandler.startConnection();
+            String selectSql = "SELECT * FROM comment WHERE recipe_id='"+recipe_id+"'";
+            Statement statement = connection.createStatement();
+            ResultSet rs_comment = statement.executeQuery(selectSql);
+            while(rs_comment.next()){
+
+
+                /*System.out.println(rs_comment.getInt("account_id"));
+                System.out.println(rs_comment.getInt("recipe_id"));
+                System.out.println(rs_comment.getString("username"));
+                System.out.println(rs_comment.getString("text"));
+                System.out.println(rs_comment.getDate("date_posted"));
+                accountIDList.add(rs_comment.getInt("account_id"));
+                System.out.println(rs_comment.getInt("account_id"));*/
+            }
+            rs_comment.close();
+            statement.close();
+            dbHandler.closeConnection();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
 
     }
     public void setRecipeInfo(int recipe_id){
@@ -56,37 +105,39 @@ public class Mainpage extends HttpServlet {
             status = true;
             rs.close();
             statement.close();
+            dbHandler.closeConnection();
         }
         catch (Exception e){
             e.printStackTrace();
         }
     }
 
+    public  void setRecipeID(int recipeID) {
+        this.recipeID = recipeID;
+    }
+    public  void setRecipeName(String recipeName) {
+        this.recipeName = recipeName;
+    }
+    public  void setRecipeStep(String recipeStep) {
 
-    public static void setRecipeID(int recipeID) {
-        Mainpage.recipeID = recipeID;
+        this.recipeStep = recipeStep;
     }
-    public static void setRecipeName(String recipeName) {
-        Mainpage.recipeName = recipeName;
-    }
-    public static void setRecipeStep(String recipeStep) {
-        Mainpage.recipeStep = recipeStep;
-    }
-    public static void setRecipePrivacy(int recipePrivacy) {
-        Mainpage.recipePrivacy = recipePrivacy;
+    public  void setRecipePrivacy(int recipePrivacy) {
+
+        this.recipePrivacy = recipePrivacy;
     }
 
 
-    public static int getRecipeID(){
+    public  int getRecipeID(){
         return recipeID;
     }
-    public static String getRecipeName(){
+    public  String getRecipeName(){
         return recipeName;
     }
-    public static int getRecipePrivacy() {
+    public  int getRecipePrivacy() {
         return recipePrivacy;
     }
-    public static String getRecipeStep() {
+    public  String getRecipeStep() {
         return recipeStep;
     }
 
