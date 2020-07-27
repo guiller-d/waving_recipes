@@ -157,18 +157,4 @@ public class DBHandler {
         statement.execute(insertSql);
         statement.close();
     }
-/*
-
-TODO: get method in the Database
-
-    public String getUsername(){
-
-
-    }
-    public String getPassword(){
-
-    }
-    public void
-*/
-
 }

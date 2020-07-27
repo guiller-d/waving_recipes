@@ -94,6 +94,7 @@ public class Controller extends HttpServlet {
             DocumentBuilder builder =  factory.newDocumentBuilder();
             Document doc = builder.parse(path);
             NodeList list = doc.getElementsByTagName(tagName);
+
             for (int index = 0; index < list.getLength(); index++){
                 Node node = list.item(index);
                 createInstances(tagName);
@@ -133,6 +134,14 @@ public class Controller extends HttpServlet {
                         }
                     }
                 }
+                new_account = null;
+                new_comment = null;
+                new_recipeType = null;
+                new_recipeImage = null;
+                new_recipeIngredient = null;
+                new_password = null;
+                new_post = null;
+                new_recipe = null;
             }
         }
         catch (ParserConfigurationException e){
@@ -154,6 +163,7 @@ public class Controller extends HttpServlet {
         if (new_account.getUsername().compareTo("N/E") != 0 && new_account.getLogin_status() != -1){
             dbHandler.insertAccountToDB(new_account.getUsername(), new_account.getLogin_status());
         }
+
     }
     public void insertComment(Element element, Post new_comment) throws Exception {
         if (element.getTagName().compareTo("accountID") == 0){
@@ -243,6 +253,7 @@ public class Controller extends HttpServlet {
         if (new_post.getAccount_id() != -1 && new_post.getDate_posted().compareTo("N/E") != 0){
             dbHandler.insertPostToDB(new_post.getAccount_id(), new_post.getDate_posted());
         }
+
 
     }
 
