@@ -144,17 +144,15 @@ public class Controller extends HttpServlet {
         }
     }
     public void insertAccount(Element element, Account new_account) throws Exception {
-        if (element.getTagName().compareTo("accountID") == 0){
-            new_account.setAccount_id(Integer.parseInt(element.getTextContent()));
-        }
-        else if (element.getTagName().compareTo("username") == 0){
+
+        if (element.getTagName().compareTo("username") == 0){
             new_account.setUsername(element.getTextContent());
         }
         else if (element.getTagName().compareTo("login") == 0) {
             new_account.setLogin_status(Integer.parseInt(element.getTextContent()));
         }
-        if (new_account.getAccount_id() != -1 && new_account.getUsername().compareTo("N/E") != 0 && new_account.getLogin_status() != -1){
-            dbHandler.insertAccountToDB(new_account.getAccount_id(), new_account.getUsername(), new_account.getLogin_status());
+        if (new_account.getUsername().compareTo("N/E") != 0 && new_account.getLogin_status() != -1){
+            dbHandler.insertAccountToDB(new_account.getUsername(), new_account.getLogin_status());
         }
     }
     public void insertComment(Element element, Post new_comment) throws Exception {
@@ -249,10 +247,7 @@ public class Controller extends HttpServlet {
     }
 
     public void insertRecipe(Element element, Recipe new_recipe) throws Exception {
-        if (element.getTagName().compareTo("recipeID") == 0){
-            new_recipe.setRecipeID(Integer.parseInt(element.getTextContent()));
-        }
-        else if (element.getTagName().compareTo("recipeName") == 0){
+        if (element.getTagName().compareTo("recipeName") == 0){
             new_recipe.setRecipeName(element.getTextContent());
         }
         else if (element.getTagName().compareTo("step") == 0){
@@ -261,8 +256,8 @@ public class Controller extends HttpServlet {
         else if (element.getTagName().compareTo("privacy") == 0){
             new_recipe.setPrivacy(Integer.parseInt(element.getTextContent()));
         }
-        if (new_recipe.getRecipeID() != -1 && new_recipe.getRecipeName().compareTo("N/E")!=0 && new_recipe.getRecipeSteps().compareTo("N/E")!=0 && new_recipe.getPrivacy() != -1){
-            dbHandler.insertRecipeToDB(new_recipe.getRecipeID(), new_recipe.getRecipeName(), new_recipe.getRecipeSteps(), new_recipe.getPrivacy());
+        if (new_recipe.getRecipeName().compareTo("N/E")!=0 && new_recipe.getRecipeSteps().compareTo("N/E")!=0 && new_recipe.getPrivacy() != -1){
+            dbHandler.insertRecipeToDB(new_recipe.getRecipeName(), new_recipe.getRecipeSteps(), new_recipe.getPrivacy());
 
         }
 

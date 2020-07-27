@@ -29,7 +29,7 @@
     </div>
 </form>
 
-<form action="/login" method="post">
+<form action="/register.jsp" method="post">
     <button type="submit" name="register">Register</button>
 </form>
 </body>

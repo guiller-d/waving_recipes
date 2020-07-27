@@ -28,13 +28,13 @@ public class DBHandler {
     }
     public void createTables(Connection connection) throws Exception{
         // Create account table
-        String createSql = "CREATE TABLE IF NOT EXISTS account (account_id INT NOT NULL, "
+        String createSql = "CREATE TABLE IF NOT EXISTS account (account_id INT NOT NULL AUTO_INCREMENT, "
                 + "username VARCHAR(32) NULL, login INT NOT NULL, "
                 + "PRIMARY KEY (account_id))";
         Statement statement = connection.createStatement();
         statement.execute(createSql);
         // Create recipe table
-        createSql = "CREATE TABLE IF NOT EXISTS recipe (recipe_id INT NOT NULL, "
+        createSql = "CREATE TABLE IF NOT EXISTS recipe (recipe_id INT NOT NULL AUTO_INCREMENT, "
                 + "recipe_name VARCHAR(128) NOT NULL, step VARCHAR(10000) NOT NULL, "
                 + "privacy INT NOT NULL, PRIMARY KEY (recipe_id))";
         statement = connection.createStatement();
@@ -85,17 +85,17 @@ public class DBHandler {
         statement.execute(createSql);
         statement.close();// Close connectionconnection.close();}}
     }
-    public void insertAccountToDB(int account_id, String username, int login) throws Exception {
+    public void insertAccountToDB(String username, int login) throws Exception {
 //        Connection connection = startConnection();
-        String insertSql = "INSERT IGNORE INTO account (account_id, username, login) " + "VALUES ('"+account_id+"', '"+username+"', '"+login+"')";
+        String insertSql = "INSERT IGNORE INTO account (username, login) " + "VALUES ('"+username+"', '"+login+"')";
         Statement statement = connection.createStatement();
         statement.execute(insertSql);
         statement.close();
     }
-    public void insertRecipeToDB(int recipe_id, String recipe_name, String step, int privacy) throws Exception {
+    public void insertRecipeToDB(String recipe_name, String step, int privacy) throws Exception {
 
         //     Connection connection = startConnection();
-        String insertSql = "INSERT IGNORE INTO recipe (recipe_id, recipe_name, step, privacy) " + "VALUES ('"+recipe_id+"', '"+recipe_name+"', '"+step+"', '"+privacy+"')";
+        String insertSql = "INSERT IGNORE INTO recipe (recipe_name, step, privacy) " + "VALUES ('"+recipe_name+"', '"+step+"', '"+privacy+"')";
         Statement statement = connection.createStatement();
         statement.execute(insertSql);
         statement.close();

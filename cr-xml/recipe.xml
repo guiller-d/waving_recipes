@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <recipes>
     <recipe>
-        <recipeID>10000</recipeID>
         <recipeName>Spicy Chicken Burger</recipeName>
         <step>
             Step 1: Make the Frank’s® Red Hot lime crema in a small bowl, whisk together the sour cream, Frank’s® Red Hot Sauce, lime juice and zest, and salt.
@@ -16,7 +15,6 @@
         <privacy>0</privacy>
     </recipe>
     <recipe>
-        <recipeID>10001</recipeID>
         <recipeName>Tuna SandWich</recipeName>
         <step>
             In a medium bowl, combine the tuna, mayonnaise, celery, onion, bell pepper, capers and lemon juice.
@@ -26,7 +24,6 @@
         <privacy>0</privacy>
     </recipe>
     <recipe>
-        <recipeID>10002</recipeID>
         <recipeName>Kimchi Fried Rice</recipeName>
         <step>
             In a large saucepan of 3 cups water, cook rice according to package instructions; set aside.
