@@ -25,14 +25,14 @@ public class Controller extends HttpServlet {
     boolean dbIsSetup = false;
     DBHandler dbHandler = new DBHandler();
 
-    String accountPath = "/Users/guillerdalit/IdeaProjects/cookingrecipe/xml/account.xml";
-    String commentPath = "/Users/guillerdalit/IdeaProjects/cookingrecipe/xml/comment.xml";
-    String foodTypepath = "/Users/guillerdalit/IdeaProjects/cookingrecipe/xml/food_type.xml";
-    String imagePath = "/Users/guillerdalit/IdeaProjects/cookingrecipe/xml/image.xml";
-    String ingredientPath = "/Users/guillerdalit/IdeaProjects/cookingrecipe/xml/ingredient.xml";
-    String passwordPath ="/Users/guillerdalit/IdeaProjects/cookingrecipe/xml/password.xml";
-    String postPath = "/Users/guillerdalit/IdeaProjects/cookingrecipe/xml/post.xml";
-    String recipePath = "/Users/guillerdalit/IdeaProjects/cookingrecipe/xml/recipe.xml";
+    String accountPath = "C:\\Users\\mina8\\Downloads\\CS157A\\cs157a-cr-eclipse-git\\cr-xml\\account.xml";
+    String commentPath = "C:\\Users\\mina8\\Downloads\\CS157A\\cs157a-cr-eclipse-git\\cr-xml\\comment.xml";
+    String foodTypepath = "C:\\Users\\mina8\\Downloads\\CS157A\\cs157a-cr-eclipse-git\\cr-xml\\food_type.xml";
+    String imagePath = "C:\\Users\\mina8\\Downloads\\CS157A\\cs157a-cr-eclipse-git\\cr-xml\\image.xml";
+    String ingredientPath = "C:\\Users\\mina8\\Downloads\\CS157A\\cs157a-cr-eclipse-git\\cr-xml\\ingredient.xml";
+    String passwordPath ="C:\\Users\\mina8\\Downloads\\CS157A\\cs157a-cr-eclipse-git\\cr-xml\\password.xml";
+    String postPath = "C:\\Users\\mina8\\Downloads\\CS157A\\cs157a-cr-eclipse-git\\cr-xml\\post.xml";
+    String recipePath = "C:\\Users\\mina8\\Downloads\\CS157A\\cs157a-cr-eclipse-git\\cr-xml\\recipe.xml";
 
 
     //Dummy variables

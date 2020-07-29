@@ -40,7 +40,7 @@ public class Login extends HttpServlet {
                     if (request.getParameter("login") != null){
                         if (validateUsername(username) == true && validatePassword(password) == true){
                             System.out.println("Username exist");
-                            response.sendRedirect("/mainpage.jsp");
+                            response.sendRedirect("/userpage.jsp");
                             //request.getRequestDispatcher("/mainpage.jsp").forward(request, response);
                         }
                         else{

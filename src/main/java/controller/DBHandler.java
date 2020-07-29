@@ -7,7 +7,7 @@ import java.time.LocalDate;
 public class DBHandler {
 
     String user = "root";
-    String password = "magnolia";
+    String password = "pwroot";
     Connection connection = null;
 
     public DBHandler (){
@@ -19,7 +19,7 @@ public class DBHandler {
     public Connection startConnection() throws Exception {
 
         try{
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/cookingRecipe?autoReconnect=true&useSSL=false", user, password);
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/cookingrecipe?autoReconnect=true&useSSL=false", user, password);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -87,7 +87,7 @@ public class DBHandler {
     }
     public void insertAccountToDB(String username, int login) throws Exception {
 //        Connection connection = startConnection();
-        String insertSql = "INSERT IGNORE INTO account (username, login) " + "VALUES ('"+username+"', '"+login+"')";
+        String insertSql = "INSERT INTO account (username, login) " + "VALUES ('"+username+"', '"+login+"')";
         Statement statement = connection.createStatement();
         statement.execute(insertSql);
         statement.close();
@@ -95,7 +95,7 @@ public class DBHandler {
     public void insertRecipeToDB(String recipe_name, String step, int privacy) throws Exception {
 
         //     Connection connection = startConnection();
-        String insertSql = "INSERT IGNORE INTO recipe (recipe_name, step, privacy) " + "VALUES ('"+recipe_name+"', '"+step+"', '"+privacy+"')";
+        String insertSql = "INSERT INTO recipe (recipe_name, step, privacy) " + "VALUES ('"+recipe_name+"', '"+step+"', '"+privacy+"')";
         Statement statement = connection.createStatement();
         statement.execute(insertSql);
         statement.close();
@@ -106,7 +106,7 @@ public class DBHandler {
         java.util.Date date = java.sql.Date.valueOf(localDate);
 
         //   Connection connection = startConnection();
-        String insertSql = "INSERT IGNORE INTO comment (account_id, recipe_id, username, text, date_posted) " + "VALUES ('"+account_id+"', '"+recipe_id+"','"+username+"', '"+text+"', '"+date+"')";
+        String insertSql = "INSERT INTO comment (account_id, recipe_id, username, text, date_posted) " + "VALUES ('"+account_id+"', '"+recipe_id+"','"+username+"', '"+text+"', '"+date+"')";
         Statement statement = connection.createStatement();
         statement.execute(insertSql);
         statement.close();
@@ -114,14 +114,14 @@ public class DBHandler {
     public void insertRecipeTypeToDB(int recipe_id, String type) throws Exception {
 
         //   Connection connection = startConnection();
-        String insertSql = "INSERT IGNORE INTO food_type (recipe_id, type) " + "VALUES ('"+recipe_id+"', '"+type+"')";
+        String insertSql = "INSERT INTO food_type (recipe_id, type) " + "VALUES ('"+recipe_id+"', '"+type+"')";
         Statement statement = connection.createStatement();
         statement.execute(insertSql);
         statement.close();
     }
     public void insertRecipeImageToDB(int recipe_id, String imagePath) throws Exception {
         //  Connection connection = startConnection();
-        String insertSql = "INSERT IGNORE INTO image (recipe_id, image) " + "VALUES ('"+recipe_id+"', LOAD_FILE('imagePath'))";
+        String insertSql = "INSERT INTO image (recipe_id, image) " + "VALUES ('"+recipe_id+"', LOAD_FILE('imagePath'))";
         Statement statement = connection.createStatement();
         statement.execute(insertSql);
         statement.close();
@@ -129,7 +129,7 @@ public class DBHandler {
     public void insertRecipeIngredientToDB(int recipe_id, String ingredient) throws Exception {
 
         //  Connection connection = startConnection();
-        String insertSql = "INSERT IGNORE INTO ingredient (recipe_id, ingredient) " + "VALUES ('"+recipe_id+"', '"+ingredient+"')";
+        String insertSql = "INSERT INTO ingredient (recipe_id, ingredient) " + "VALUES ('"+recipe_id+"', '"+ingredient+"')";
         Statement statement = connection.createStatement();
         statement.execute(insertSql);
         statement.close();
@@ -141,7 +141,7 @@ public class DBHandler {
         java.util.Date date = java.sql.Date.valueOf(localDate);
 
         //  Connection connection = startConnection();
-        String insertSql = "INSERT IGNORE INTO password (account_id, password, hash_password, last_update) " + "VALUES ('"+accountID+"', '"+password+"', '"+hashPassword+"', '"+date+"')";
+        String insertSql = "INSERT INTO password (account_id, password, hash_password, last_update) " + "VALUES ('"+accountID+"', '"+password+"', '"+hashPassword+"', '"+date+"')";
         Statement statement = connection.createStatement();
         statement.execute(insertSql);
         statement.close();
@@ -152,7 +152,7 @@ public class DBHandler {
         java.util.Date date = java.sql.Date.valueOf(localDate);
 
         //   Connection connection = startConnection();
-        String insertSql = "INSERT IGNORE INTO post (account_id, date_posted) " + "VALUES ('"+accountID+"', '"+date+"')";
+        String insertSql = "INSERT INTO post (account_id, date_posted) " + "VALUES ('"+accountID+"', '"+date+"')";
         Statement statement = connection.createStatement();
         statement.execute(insertSql);
         statement.close();

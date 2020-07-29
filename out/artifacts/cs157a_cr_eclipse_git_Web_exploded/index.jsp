@@ -13,16 +13,18 @@
 </head>
 <body>
 <h1>Cooking Recipe</h1>
+
+<jsp:include page="login.jsp"></jsp:include>
 <%
-  String db = "cs157a";
+  /*String db = "cs157a";
   Controller controller = new Controller();
   controller.initializedDB();
-  if (controller.isComplete() == true){
-    System.out.println("Database Setup Completed.");
-    response.sendRedirect("login.jsp");
-  }
+ if (controller.isComplete() == true){
+   System.out.println("Database Setup Completed.");
+   response.sendRedirect("login.jsp");
+  }*/
 %>
-<form action="/controller" method="post"/>
+
 
 </body>
 </html>

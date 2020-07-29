@@ -20,7 +20,12 @@
 
 <body>
 
-
+<style>
+    body {
+        background-image: url("./img/addRecipe-background.jpeg");
+        background-size: 100% 300%;
+    }
+</style>
 
 <!--navbar-->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
