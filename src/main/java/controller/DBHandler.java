@@ -42,7 +42,7 @@ public class DBHandler {
 
         // Create password table
         createSql = "CREATE TABLE IF NOT EXISTS password (account_id INT NOT NULL, "
-                + " password VARCHAR(32) NOT NULL, hash_password VARCHAR(32) NOT NULL, "
+                + " password VARCHAR(32) NOT NULL, hash_password VARCHAR(64) NOT NULL, "
                 + " last_update DATE, "
                 + " PRIMARY KEY (account_id))";
         statement = connection.createStatement();
@@ -55,7 +55,7 @@ public class DBHandler {
         statement.execute(createSql);
         // Create image table
         createSql = "CREATE TABLE IF NOT EXISTS image (recipe_id INT NOT NULL, "
-                + "  image BLOB NOT NULL)";
+                + "  image VARCHAR(32) NOT NULL)";
         statement = connection.createStatement();
         statement.execute(createSql);
 
@@ -121,7 +121,7 @@ public class DBHandler {
     }
     public void insertRecipeImageToDB(int recipe_id, String imagePath) throws Exception {
         //  Connection connection = startConnection();
-        String insertSql = "INSERT IGNORE INTO image (recipe_id, image) " + "VALUES ('"+recipe_id+"', LOAD_FILE('imagePath'))";
+        String insertSql = "INSERT IGNORE INTO image (recipe_id, image) " + "VALUES ('"+recipe_id+"', '"+imagePath+"')";
         Statement statement = connection.createStatement();
         statement.execute(insertSql);
         statement.close();
