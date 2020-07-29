@@ -5,7 +5,6 @@ import controller.DBHandler;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-import javax.servlet.jsp.JspWriter;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
