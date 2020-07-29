@@ -39,7 +39,7 @@
 
 <div class = "middle-container">
     <h1> Don't have account yet? <h1>
-        <form action="/login" method="post">
+        <form action="/register.jsp" method="post">
             <button type="submit" name="register">Register</button>
         </form>
 </div>
