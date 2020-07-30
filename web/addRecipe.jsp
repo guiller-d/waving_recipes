@@ -17,7 +17,7 @@
 </head>
 <style>
     body {
-        background-image: url("https://i.picsum.photos/id/307/5760/3840.jpg?hmac=XtsDQJ477ylS15H1VvpO9qCUlvrvBcDVQBu9ZUlB-SI");
+        background-image: url("./images/addRecipe-background.jpeg");
         background-size: 100% 100%;
     }
 </style>
