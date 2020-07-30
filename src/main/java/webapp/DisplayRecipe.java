@@ -28,6 +28,7 @@ public class DisplayRecipe extends HttpServlet{
     private ArrayList<String> usernameList = new ArrayList<String>();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         HttpSession sess = request.getSession(false); //use false to use the existing session
         recipeID = (int) sess.getAttribute("recipeID");//this will return username anytime in the session
         recipeName = String.valueOf(sess.getAttribute("recipeName"));
