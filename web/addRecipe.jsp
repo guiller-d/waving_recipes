@@ -25,11 +25,9 @@
 <body>
 <div class="container-fluid">
     <div class="row flex-xl-nowrap">
-        <div class="col-md-3 col-xl-2">
 
-        </div>
 
-        <div class="col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content main-background">
+        <div class="mx-auto col-xl-8 py-md-3 pl-md-5 bd-content main-background">
             <form>
                 <div class="form-group">
                     <label for="exampleFormControlTextarea1">Recipe Name:</label>
