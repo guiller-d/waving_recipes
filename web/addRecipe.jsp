@@ -49,7 +49,7 @@
                     </div>
                 </form>
                 <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Step:</label>
+                    <label for="exampleFormControlTextarea1"><img src="./images/tomato.jpg" width="36px;">Step:</label>
                     <textarea class="form-control" id="exampleFormControlTextarea1" rows="15"></textarea>
                 </div>
 
