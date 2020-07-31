@@ -38,3 +38,13 @@
     padding: 15px;
     background-color: rgba(50, 200, 250, 0.9);
 }
+
+.fav-icon {
+    position: fixed;
+    width: 30px;
+    margin: 5px;
+}
+.fav-icon:hover {
+    width: 35px;
+    cursor: pointer;
+}
