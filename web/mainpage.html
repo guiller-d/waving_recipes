@@ -73,12 +73,18 @@
 
             <!--display recipes-->
             <div class="container" style="margin-bottom: 15px; margin-top: 15px;">
+
                 <div class="row">
                     <div class="col">
                         <div class="card" style="width: 15rem;">
                             <img src="./images/10.jpg" class="card-img-top" alt="...">
 
-                            <img onclick="" class="fav-icon" title="Add to favorite" src="./images/heart-empty-black.png">
+                            <form action="mainpage.jsp" method="post">
+                                <button type="submit" class="dropdown-item" name="myRecipe">My Recipe</button>
+                            </form>
+
+                            <img onclick="" class="fav-icon" name ="addToFavorite" title="Add to favorite" src="./images/heart-empty-black.png">
+
                             <div class="card-body">
                                 <h5 class="card-title">recipe title</h5>
                                 <footer class="blockquote-footer text-right">date posted</footer>
