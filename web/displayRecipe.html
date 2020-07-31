@@ -15,8 +15,10 @@
 </head>
 <style>
     body {
-        background-image: url("login.jpg.jpeg");
+        background-image: url("./images/displayRecipe-bg.jpg");
         background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
     }
 </style>
 
@@ -54,8 +56,6 @@
         </div>
     </nav>
     <div class="row flex-xl-nowrap">
-
-
         <div class="col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content main-background">
             <form action=\"/mainpage\" method=\"post\">
                 <button class="btn btn-primary" type="submit" name="addToFav">Add to Favorites</button>
@@ -69,10 +69,12 @@
                 <div class="form-group">
                     <label>Recipe Name:</label>
                 </div>
+                <div class="form-group">
+                    <label>Author:</label>
+                </div>
 
                 <div class="form-group">
                     <label>Dish Type:</label>
-
                 </div>
                 <div class="form-group">
                     <label>Ingredients:</label>
@@ -105,7 +107,6 @@
                     <footer class="blockquote-footer text-right">date posted</footer>
                 </div>
             </div>
-
             <div class="card w-100">
                 <div class="card-body">
                     <h5 class="card-title">username</h5>

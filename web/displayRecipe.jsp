@@ -28,8 +28,10 @@
 </head>
 <style>
     body {
-        background-image: url("./Images/displayRecipe-bg.jpg");
+        background-image: url("./images/displayRecipe-bg.jpg");
         background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
     }
 </style>
 
