@@ -5,13 +5,17 @@
 <%@ page import="java.sql.Connection" %>
 <%@ page import="java.sql.ResultSet" %>
 <%@ page import="webapp.WebHandler" %>
-<%@ page import="webapp.Mainpage" %><%--
+<%@ page import="webapp.Mainpage" %>
+<%@ page import="java.util.Collection" %>
+<%@ page import="java.util.Collections" %><%--
   Created by IntelliJ IDEA.
   User: guillerdalit
   Date: 7/24/20
   Time: 3:14 PM
   To change this template use File | Settings | File Templates.
 --%>
+
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 
@@ -61,17 +65,17 @@
         <form action="mainpage.jsp" method="post">
             <div class="dropdown">
                 <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Username
+                    ${currentUserName}
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <button type="submit" class="dropdown-item" name="home">Home</button>
                     <button type="submit" class="dropdown-item" name="myRecipe">My Recipe</button>
-                    <button type="submit" class="dropdown-item" name="follower">Follower</button>
-                    <button type="submit" class="dropdown-item" name="favorite">Favorite</button>
+                    <button type="submit" class="dropdown-item" name="myFavorites">Favorites</button>
+                    <button type="submit" class="dropdown-item" name="following">Followers</button>
                     <button type="submit" class="dropdown-item" name="logoutInDisplay">Logout</button>
                 </div>
             </div>
         </form>
-
     </div>
 </nav>
 
@@ -84,8 +88,9 @@
 
 <%  WebHandler webHandler = new WebHandler();
     DBHandler dbHandler = new DBHandler();
-%>
 
+
+%>
 <datalist id="recipeList">
     <%
         /**************************************************************************
@@ -106,9 +111,33 @@
         }
         catch (Exception e){
             e.printStackTrace();
-        } %>
-</datalist>
+        }
+        /**************************************************************************
+         * get My Recipe
+         **************************************************************************/
+        ArrayList<Integer> myFavList = new ArrayList<Integer>();
+        try {
+            HttpSession sess = request.getSession(false); //use false to use the existing session
+            int currentUserID = (int) sess.getAttribute("currentUserID");//this will return id anytime in the session
+            Connection connection = dbHandler.startConnection();
+            Statement statement = connection.createStatement();
+            ResultSet rs_myrecipe = statement.executeQuery("SELECT * FROM recipe NATURAL JOIN myrecipe WHERE account_id='"+currentUserID+"'");
+            while(rs_myrecipe.next()){
+                //rs_myrecipe.getInt("account_id");
+                myFavList.add(rs_myrecipe.getInt("recipe_id"));
 
+            }
+            rs_myrecipe.close();
+            statement.close();
+            connection.close();
+
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+
+    %>
+</datalist>
 
 <!--display recipes-->
 <div class="container-fluid">
@@ -116,79 +145,168 @@
         <div class="mx-auto col-xl-11 main-background">
             <!--display recipes-->
             <div class="container" style="margin-bottom: 15px; margin-top: 15px;">
-                <%
-                    /**************************************************************************
-                     * Displaying Recipe
-                     **************************************************************************/
-                    try {
-                        Connection connection = dbHandler.startConnection();
-                        Statement stmt = connection.createStatement();
-                        ResultSet rs;
-                        if (request.getParameter("search") != null){
-                            String recipeInSearch = request.getParameter("recipeSearch");
-                            recipeInSearch = "%" + recipeInSearch + "%";
-                            rs = stmt.executeQuery("SELECT * FROM recipe WHERE recipe_name LIKE '"+recipeInSearch+"'");
-                        }
-                        else{
-                            rs = stmt.executeQuery("SELECT * FROM recipe");
-                        }
-                        int recipeID;
-                        String recipeName;
-                        String imagePath;
-                        int index = 0;
-                        while (rs.next()) {
-                            recipeID = rs.getInt("recipe_id");
-                            recipeName = rs.getString("recipe_name");
-                            imagePath = webHandler.getImage(recipeID);
+                <div class="row">
+                    <%
+                        /**************************************************************************
+                         * getting recipe owners
+                         **************************************************************************/
+                        ArrayList <Integer> recipeOwners = new ArrayList <Integer>();
+                        ArrayList <Integer> uploadedRecipes = new ArrayList <Integer>();
 
-                            if ((index % 4) == 0 || index == 0){
-                                out.println( "<div class=\"row\">\n");
+                        try{
+                            Connection connection = dbHandler.startConnection();
+                            Statement statement = connection.createStatement();
+                            ResultSet rs = statement.executeQuery("SELECT * FROM recipe NATURAL JOIN access");
+
+                            while (rs.next()){
+                                recipeOwners.add(rs.getInt("account_id"));
+                                uploadedRecipes.add(rs.getInt("recipe_id"));
                             }
-                            out.println( "<div class=\"col\" name =''"+recipeID+"'" + ">\n" +
-                                    "        <div class=\"card\" style=\"width: 15rem;\">\n" +
-                                    "             <img src='"+imagePath+"'" +" class=\"card-img-top\" alt=\"...\" width=\"150\" height=\"200\" >\n" +
-                                    "               <div class=\"card-body\">\n" +
-                                    "                   <h5 class=\"card-title\">'"+recipeName+"'</h5>\n" + "" +
-                                    "            <footer class=\"blockquote-footer text-right\">'"+recipeName+"'</footer>\n" +
-                                    "                   <form action=\"/mainpage\" method=\"post\">\n" +
-                                    "                        <button class=\"btn btn-primary\" type=\"submit\" name='"+recipeID+"'" + ">GO to recipe\n" + "  " +
-                                    "                        <button class=\"btn btn-primary\" type=\"submit\" name='"+recipeID+"'" + ">Add to Favorites\n" +
-                                    "                        </button>\n" +
-                                    "                   </form>       " +
-                                    "                 </div>\n" +
-                                    "            </div>\n" +
-                                    "        </div>\n");
-                            if ((index % 4) == 3){
-                                out.println( "</div>\n");
-                            }
-                            index++;
+
+                            rs.close();
+                            statement.close();
+                            connection.close();
+                        }
+                        catch (Exception e){
+                            e.printStackTrace();
                         }
 
-                        out.println( "</div>\n");
-                        rs.close();
-                        stmt.close();
-                        connection.close();
-                    }
-                    catch(Exception e) {
-                        System.out.println("SQLException caught: " + e.getMessage());
-                    }
 
-                    /**************************************************************************
-                     * Logging OUT, NO SESSION implementation, basic logout
-                     **************************************************************************/
-                    if (request.getParameter("logoutInDisplay") != null){
-                        response.sendRedirect("/login.jsp");
+                        /**************************************************************************
+                         * getting owners username
+                         **************************************************************************/
+                        ArrayList <String> OwnersUsernames = new ArrayList <String>();
 
-                    }
-                %>
+                        try{
+                            Connection connection = dbHandler.startConnection();
+                            Statement statement = connection.createStatement();
+                            ResultSet rs = statement.executeQuery("SELECT * FROM account");
 
+                            int accout_id = 0;
+                            String username = "";
 
+                            while (rs.next()){
+                                accout_id = rs.getInt("account_id");
+                                username = rs.getString("username");
+                                for (int j = 0; j <  recipeOwners.size(); j++){
+                                    if (recipeOwners.get(j) == accout_id){
+                                        OwnersUsernames.add(username);
+                                    }
+                                }
+                            }
 
+                            rs.close();
+                            statement.close();
+                            connection.close();
+                        }
+                        catch (Exception e){
+                            e.printStackTrace();
+                        }
+
+                        /**************************************************************************
+                         * Displaying Recipe
+                         **************************************************************************/
+                        try {
+                            Connection connection = dbHandler.startConnection();
+                            Statement stmt = connection.createStatement();
+                            ResultSet rs;
+                            if (request.getParameter("search") != null){
+                                String recipeInSearch = request.getParameter("recipeSearch");
+                                recipeInSearch = "%" + recipeInSearch + "%";
+                                rs = stmt.executeQuery("SELECT * FROM recipe WHERE recipe_name LIKE '"+recipeInSearch+"'");
+                            }
+                            else{
+                                rs = stmt.executeQuery("SELECT * FROM recipe");
+                                System.out.println("Only happen onces");
+                            }
+                            int recipeID;
+                            String recipeName;
+                            String imagePath;
+                            int index = 0;
+
+                            while (rs.next()) {
+                                recipeID = rs.getInt("recipe_id");
+                                recipeName = rs.getString("recipe_name");
+                                imagePath = webHandler.getImage(recipeID);
+                                if ((index % 4) == 0 || index == 0){
+                                    out.println( "<div class=\"row\">\n");
+                                }
+                                out.println( "<div class=\"col\" name =''"+recipeID+"'" + ">\n" +
+                                        "        <div class=\"card\" style=\"width: 15rem;\">\n" +
+                                        "             <img src='"+imagePath+"'" +" class=\"card-img-top\" alt=\"...\" width=\"150\" height=\"200\" >\n");
+                                if (request.getParameter("addToFavorite") != null) { //if the user click
+                                    //TODO:
+                                    System.out.println("It was clicked");
+                                }
+                                out.println("<div class=\"card-body\">\n" +
+                                        "               <h5 class=\"card-title\">'"+recipeName+"'</h5>\n" + "");
+
+                                for (int i = 0; i < uploadedRecipes.size(); i++){
+                                    if (uploadedRecipes.get(i) == recipeID){
+                                        out.println("<footer class=\"blockquote-footer text-right\">'"+OwnersUsernames.get(i)+"'</footer>\n");
+                                        break;
+                                    }
+                                }
+                                out.println("<form action=\"/mainpage\" method=\"post\">\n" +
+                                        "                        <button class=\"btn btn-primary\" type=\"submit\" name='"+recipeID+"'" + ">GO to recipe\n" + "  ");
+
+                                if (myFavList.contains(recipeID)){
+                                    out.println("<button class=\"btn btn-primary\" type=\"submit\" name='"+recipeID+"'" + ">Is My Favorite\n");
+                                }else{
+                                    out.println("<button class=\"btn btn-primary\" type=\"submit\" name='"+recipeID+"'" + ">Add to Favorites\n");
+                                }
+                                out.println("</button>\n" +
+                                        "                   </form>       " +
+                                        "                 </div>\n" +
+                                        "            </div>\n" +
+                                        "        </div>\n");
+                                if ((index % 4) == 3){
+                                    out.println( "</div>\n");
+                                }
+                                index++;
+                            }
+
+                            rs.close();
+                            stmt.close();
+                            connection.close();
+                        }
+                        catch(Exception e) {
+                            System.out.println("SQLException caught: " + e.getMessage());
+                        }
+                        /**************************************************************************
+                         * Go back to mainpage
+                         **************************************************************************/
+                        if (request.getParameter("home") != null){
+                            request.getRequestDispatcher("/mainpage.jsp").forward(request, response);
+                        }
+                        /**************************************************************************
+                         * Logging OUT, NO SESSION implementation, basic logout
+                         **************************************************************************/
+                        if (request.getParameter("logoutInDisplay") != null){
+                            request.getRequestDispatcher("/login.jsp").forward(request, response);
+                        }
+
+                        /**************************************************************************
+                         * Show My Recipe
+                         **************************************************************************/
+                        if (request.getParameter("myRecipe") != null){
+                            request.getRequestDispatcher("/myrecipe.jsp").forward(request, response);
+                        }
+                        /**************************************************************************
+                         * Add Recipe
+                         **************************************************************************/
+                        if (request.getParameter("addRecipe") != null){
+                            request.getRequestDispatcher("/addRecipe.jsp").forward(request, response);
+                        }
+                    %>
+                </div>
             </div>
         </div>
-    </div>
-</div>
 
+        <a href="/addRecipe.jsp"><img class="add-recipe-btn" title="Add new recipe" src="./Images/plus.png"></a>
+
+    </div>
 
 </body>
 </html>
+
