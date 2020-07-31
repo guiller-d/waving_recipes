@@ -90,20 +90,19 @@ public class WebHandler {
 
     }
     public boolean isDBReady(){
-        boolean isDBReady = false;
         try{
             if (databaseReady == false){
                 controller.initializedDB();
                 if (controller.isComplete() == true){
-                    isDBReady = true;
+                    databaseReady = true;
+                    System.out.println("Database created");
                 }
             }
         }
         catch (Exception e){
             e.printStackTrace();
         }
-        System.out.println("Database created");
-        return isDBReady;
+        return databaseReady;
     }
     public int getAccountCount(){
 
@@ -115,7 +114,6 @@ public class WebHandler {
             ResultSet rs_account = statement.executeQuery(selectSql);
             rs_account.first();
             accountCount = rs_account.getInt("account_count");
-            accountCount += 1;
             statement.close();
             rs_account.close();
             dbHandler.closeConnection();
@@ -145,6 +143,37 @@ public class WebHandler {
         return count;
     }
 
+    public int getAccountID(String username, String password){
+
+        int returnID = 0;
+        try{
+            Connection connection = dbHandler.startConnection();
+            String selectSql = "SELECT * FROM account WHERE username='"+username+"'";
+            Statement statement = connection.createStatement();
+            ResultSet rs_account = statement.executeQuery(selectSql);
+
+            if (rs_account.isBeforeFirst() == false) {
+                System.out.println("No username found in the database");
+                System.out.println("In here");
+            }
+            else{
+                rs_account.first();
+                username_DB = rs_account.getString("username");
+                if (username.compareTo(username_DB) == 0){
+                    if (validatePassword(password) == true){
+                        returnID = rs_account.getInt("account_id");
+                    }
+
+                }
+                statement.close();
+                rs_account.close();
+            }
+        }
+        catch (Exception e){
+
+        }
+        return returnID;
+    }
     public String getImage(int recipe_id){
         String imagepath = "";
         try{
@@ -210,6 +239,7 @@ public class WebHandler {
     }
 
     /*src: https://www.geeksforgeeks.org/sha-256-hash-in-java/*/
+
     public byte[] getSHA(String input) throws NoSuchAlgorithmException, NoSuchAlgorithmException {
         // Static getInstance method is called with hashing SHA
         MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -219,7 +249,6 @@ public class WebHandler {
         // and return array of byte
         return md.digest(input.getBytes(StandardCharsets.UTF_8));
     }
-
     public String toHexString(byte[] hash)
     {
         // Convert byte array into signum representation
