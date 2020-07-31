@@ -37,6 +37,8 @@
     body {
         background-image: url("./Images/main-background.jpg");
         background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
     }
 </style>
 <body>
