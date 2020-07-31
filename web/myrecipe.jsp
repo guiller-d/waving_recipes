@@ -30,6 +30,8 @@
     body {
         background-image: url("./Images/myRecipe-bg.jpg");
         background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
     }
 </style>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
