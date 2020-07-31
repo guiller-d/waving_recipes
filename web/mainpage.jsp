@@ -65,7 +65,8 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <button type="submit" class="dropdown-item" name="myRecipe">My Recipe</button>
-                    <button type="submit" class="dropdown-item" name="following">Following</button>
+                    <button type="submit" class="dropdown-item" name="follower">Follower</button>
+                    <button type="submit" class="dropdown-item" name="favorite">Favorite</button>
                     <button type="submit" class="dropdown-item" name="logoutInDisplay">Logout</button>
                 </div>
             </div>
