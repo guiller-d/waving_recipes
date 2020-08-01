@@ -233,7 +233,7 @@
                                 if ((index % 4) == 0 || index == 0){
                                     out.println( "<div class=\"row\">\n");
                                 }
-                                out.println( "<div class=\"col\" name =''"+recipeID+"'" + ">\n" +
+                                out.println( "<div class=\"col d-flex\" name =''"+recipeID+"'" + ">\n" +
                                         "        <div class=\"card\" style=\"width: 15rem;\">\n" +
                                         "             <img src='"+imagePath+"'" +" class=\"card-img-top\" alt=\"...\" width=\"150\" height=\"200\" >\n");
                                 if (request.getParameter("addToFavorite") != null) { //if the user click

@@ -60,3 +60,7 @@
 .add-recipe-btn:hover {
     width: 60px;
 }
+
+.row {
+    margin-bottom: 10px !important;
+}
