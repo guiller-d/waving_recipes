@@ -33,8 +33,6 @@ public class Mainpage extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        PrintWriter out = response.getWriter();
-
 
 
         HttpSession sess = request.getSession(false); //use false to use the existing session
@@ -48,19 +46,65 @@ public class Mainpage extends HttpServlet {
 
         int recipeCount = webHandler.getRecipeCount();
         for (int index = 0; index < recipeCount; index++){
-            if (request.getParameter(String.valueOf(index)) != null){
+            if (request.getParameter("gotoRecipe" + String.valueOf(index)) != null){
+                recipeID = index;
+                break;
+            }
+            if (request.getParameter("addToFavorites" + String.valueOf(index)) != null){
+                recipeID = index;
+                break;
+            }
+            if (request.getParameter("unAddToFavorites" + String.valueOf(index)) != null){
                 recipeID = index;
                 break;
             }
         }
-        if (recipeID != 0){
+        //if the user click gotoRecipe
+        if (request.getParameter("gotoRecipe" + recipeID) != null){
             getRecipeComments(recipeID, request);
             displayRecipe(recipeID, request);
-
-
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/displayRecipe.jsp");
             dispatcher.forward(request,response);
             //response.sendRedirect("/displayRecipe.jsp");
+        }
+        if (request.getParameter("addToFavorites" + recipeID) != null){
+
+            try{
+                dbHandler.startConnection();
+                dbHandler.insertMyFavoriteToDB(currentUserID, recipeID);
+                dbHandler.closeConnection();
+
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
+            sess = request.getSession(false); //use false to use the existing session
+            System.out.println("addToFavorites");
+            String heartPath = "Images/heart-filled-red.png";
+            request.setAttribute("heartPath",heartPath);
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/mainpage.jsp");
+            dispatcher.forward(request,response);
+
+
+        }
+        if (request.getParameter("unAddToFavorites" + recipeID) != null){
+
+            try{
+                Connection connection = dbHandler.startConnection();
+                Statement statement = connection.createStatement();
+                statement.executeUpdate("DELETE FROM myfavorite WHERE recipe_id='"+recipeID+"'");
+                dbHandler.closeConnection();
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+
+
+
+            String unHeartPath = "Images/heart-empty-black.png";
+            request.setAttribute("unheart",unHeartPath);
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/mainpage.jsp");
+            dispatcher.forward(request,response);
         }
 
     }
@@ -92,11 +136,6 @@ public class Mainpage extends HttpServlet {
             recipeStep = rs_recipe.getString("step");
             recipePrivacy = rs_recipe.getInt("privacy");
             recipeImage = webHandler.getImage(recipeID);
-
-            System.out.println(recipeID);
-            System.out.println(recipeName);
-            System.out.println(recipeStep);
-            System.out.println(recipeImage);
 
             //available access to the next JSP
             HttpSession sess = request.getSession();

@@ -1,6 +1,7 @@
 package webapp;
 
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -52,12 +53,15 @@ public class DisplayRecipe extends HttpServlet{
         request.setAttribute(comment_list, commentList);
         request.setAttribute(username_list, usernameList);
 
-        request.getRequestDispatcher("/displayRecipe.jsp").forward(request, response);
-
-
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/displayRecipe.jsp");
+        dispatcher.forward(request,response);
+        //request.getRequestDispatcher("/displayRecipe.jsp").forward(request, response);
 
     }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+    }
+    public void getRecipe(){
+        System.out.println("getting recipe");
     }
 }

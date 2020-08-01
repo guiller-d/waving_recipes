@@ -20,6 +20,7 @@ import java.sql.Connection;
 import java.util.Iterator;
 import java.util.List;
 
+
 @WebServlet(name ="addrecipe")
 public class AddRecipe extends HttpServlet {
 
@@ -131,10 +132,7 @@ public class AddRecipe extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/myrecipe.jsp");
-        dispatcher.forward(request,response);
-        //request.getRequestDispatcher("/myrecipe.jsp").forward(request, response);
+        response.sendRedirect("/myrecipe.jsp");
 
     }
 }

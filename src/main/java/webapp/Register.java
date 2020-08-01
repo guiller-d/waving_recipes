@@ -31,24 +31,31 @@ public class Register extends HttpServlet {
 
         String repeatPassword = request.getParameter("password_repeat");
 
-        if (password.compareTo(repeatPassword) != 0) {
-            String errorMessage = "errorMessage";
-            String error = "Password Mismatch";
-            request.setAttribute(errorMessage, error);
-            request.getRequestDispatcher("/register.jsp").forward(request, response);
-        } else {
-            try {
-                hashPassword = webHandler.toHexString(webHandler.getSHA(password));
-                date = webHandler.getDateToday();
-                webHandler.insertAccount(username);
-                webHandler.register(webHandler.getAccountCount(), username, password, hashPassword, date);
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
+
+        if (request.getParameter("register") != null){
+
+            if (password.compareTo(repeatPassword) != 0) {
+                String errorMessage = "errorMessage";
+                String error = "Password Mismatch";
+                request.setAttribute(errorMessage, error);
+                request.getRequestDispatcher("/login.jsp").forward(request, response);
+            } else {
+
+                try {
+                    hashPassword = webHandler.toHexString(webHandler.getSHA(password));
+                    date = webHandler.getDateToday();
+                    webHandler.insertAccount(username);
+                    webHandler.register(webHandler.getAccountCount(), username, password, hashPassword, date);
+
+                } catch (NoSuchAlgorithmException e) {
+                    e.printStackTrace();
+                }
             }
-        }
-        if (request.getParameter("signon") != null){
             response.sendRedirect("/login.jsp");
         }
+
+
+
     }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

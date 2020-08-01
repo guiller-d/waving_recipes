@@ -4,7 +4,6 @@ import controller.Controller;
 import controller.DBHandler;
 
 import java.math.BigInteger;
-import java.net.Inet4Address;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -42,7 +41,7 @@ public class WebHandler {
                 System.out.println("In here");
             }
             else{
-                rs_account.first();
+                rs_account.next();
                 username_DB = rs_account.getString("username");
                 accountID = rs_account.getInt("account_id");
                 if (username.compareTo(username_DB) == 0){
@@ -72,7 +71,7 @@ public class WebHandler {
                 System.out.println("No password found in the database");
             }
             else{
-                rs_password.first();
+                rs_password.next();
                 password_DB = rs_password.getString("password");
                 if (password.compareTo(password_DB) == 0){
                     isValidated = true;
@@ -112,7 +111,7 @@ public class WebHandler {
             String selectSql = "SELECT COUNT(account_id) AS account_count FROM account";
             Statement statement = connection.createStatement();
             ResultSet rs_account = statement.executeQuery(selectSql);
-            rs_account.first();
+            rs_account.next();
             accountCount = rs_account.getInt("account_count");
             statement.close();
             rs_account.close();
@@ -131,7 +130,7 @@ public class WebHandler {
             String selectSql = "SELECT COUNT(recipe_id) AS recipe_count FROM recipe";
             Statement statement = connection.createStatement();
             ResultSet rs_recipe_count = statement.executeQuery(selectSql);
-            rs_recipe_count.first();
+            rs_recipe_count.next();
             count =  rs_recipe_count.getInt("recipe_count");
             statement.close();
             rs_recipe_count.close();
@@ -157,7 +156,7 @@ public class WebHandler {
                 System.out.println("In here");
             }
             else{
-                rs_account.first();
+                rs_account.next();
                 username_DB = rs_account.getString("username");
                 if (username.compareTo(username_DB) == 0){
                     if (validatePassword(password) == true){
@@ -181,7 +180,7 @@ public class WebHandler {
             String selectSql = "SELECT image FROM image WHERE recipe_id='"+recipe_id+"'";
             Statement statement = connection.createStatement();
             ResultSet rs_image = statement.executeQuery(selectSql);
-            rs_image.first();
+            rs_image.next();
             imagepath = rs_image.getString("image");
             rs_image.close();
             statement.close();
