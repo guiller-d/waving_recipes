@@ -2,9 +2,11 @@ package webapp;
 
 import controller.DBHandler;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
+import javax.servlet.jsp.JspWriter;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
@@ -25,10 +27,22 @@ public class Mainpage extends HttpServlet {
 
     private ArrayList<String> commentList = new ArrayList<String>();
     private ArrayList<String> usernameList = new ArrayList<String>();
+    private ArrayList<String> datePostedList = new ArrayList<String>();
 
     private static boolean status = false;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        PrintWriter out = response.getWriter();
+
+
+
+        HttpSession sess = request.getSession(false); //use false to use the existing session
+        String currentUser = (String) sess.getAttribute("currentUserName");//this will return username anytime in the session
+        int currentUserID = (int) sess.getAttribute("currentUserID");//this will return id anytime in the session
+        request.setAttribute("currentUserName", currentUser);
+        request.setAttribute("currentUserID", currentUserID);
+
 
         int recipeID = 0;
 
@@ -41,7 +55,12 @@ public class Mainpage extends HttpServlet {
         }
         if (recipeID != 0){
             getRecipeComments(recipeID, request);
-            displayRecipe(recipeID, response, request);
+            displayRecipe(recipeID, request);
+
+
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/displayRecipe.jsp");
+            dispatcher.forward(request,response);
+            //response.sendRedirect("/displayRecipe.jsp");
         }
 
     }
@@ -52,7 +71,7 @@ public class Mainpage extends HttpServlet {
         response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
         response.getWriter().write(text);
     }
-    public void displayRecipe(int recipeID, HttpServletResponse response, HttpServletRequest request){
+    public void displayRecipe(int recipeID, HttpServletRequest request){
 
         int recipePrivacy = 0;
         String recipeName = "";
@@ -74,12 +93,6 @@ public class Mainpage extends HttpServlet {
             recipePrivacy = rs_recipe.getInt("privacy");
             recipeImage = webHandler.getImage(recipeID);
 
-            System.out.println("RecipeID=" + recipeID);
-            System.out.println("RecipeName=" + recipeName);
-            System.out.println("RecipeStep=" + recipeStep);
-            System.out.println("recipePrivacy" + recipePrivacy);
-            System.out.println("recipeImage" + recipeImage);
-
             System.out.println(recipeID);
             System.out.println(recipeName);
             System.out.println(recipeStep);
@@ -91,7 +104,8 @@ public class Mainpage extends HttpServlet {
             sess.setAttribute("recipeName", recipeName);
             sess.setAttribute("recipeStep", recipeStep);
             sess.setAttribute("recipeImage", recipeImage);
-            response.sendRedirect("/displayRecipe.jsp");
+
+
         }
         catch (Exception e){
 
@@ -99,6 +113,9 @@ public class Mainpage extends HttpServlet {
     }
     public void getRecipeComments(int recipeID, HttpServletRequest request){
         HttpSession sess = request.getSession();
+        commentList.clear();
+        usernameList.clear();
+
         try{
             Connection connection = dbHandler.startConnection();
             String selectSql = "SELECT * FROM comment WHERE recipe_id='"+recipeID+"'";
@@ -108,6 +125,7 @@ public class Mainpage extends HttpServlet {
             while (rs.next()){
                 commentList.add(rs.getString("text"));
                 usernameList.add(rs.getString("username"));
+                datePostedList.add(String.valueOf(rs.getDate("date_posted")));
             }
             rs.close();
             statement.close();
