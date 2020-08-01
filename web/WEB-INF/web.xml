@@ -74,6 +74,27 @@
         <url-pattern>/follower</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>myrecipe</servlet-name>
+        <servlet-class>webapp.MyRecipe</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>myrecipe</servlet-name>
+        <url-pattern>/myrecipe</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>myfavorite</servlet-name>
+        <servlet-class>webapp.MyFavorite</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>myfavorite</servlet-name>
+        <url-pattern>/myfavorite</url-pattern>
+    </servlet-mapping>
+
+
 
 
 
