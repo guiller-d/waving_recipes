@@ -58,10 +58,7 @@
                 <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                <a class="nav-link" href="#">About</a>
             </li>
         </ul>
         <form action="mainpage.jsp" method="post">
@@ -81,7 +78,7 @@
     </div>
 </nav>
 
-<div><!-- Create a method in which it will print out new recipe in the mainpage-->
+<div style="margin-left: 15px;"><!-- Create a method in which it will print out new recipe in the mainpage-->
     <form action="mainpage.jsp" method="post" class="form-inline my-2 my-lg-0">
         <%--@declare id="recipelist"--%><input input type="text" name ="recipeSearch" list="recipeList" class="form-control mr-sm-2" placeholder="Search...">
         <button class="btn btn-primary" type="submit" name="search">Search</button>
