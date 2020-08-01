@@ -43,9 +43,9 @@ public class Controller extends HttpServlet {
     String passwordPath ="/Users/guillerdalit/IdeaProjects/cookingrecipe/xml/password.xml";
     String postPath = "/Users/guillerdalit/IdeaProjects/cookingrecipe/xml/post.xml";
     String recipePath = "/Users/guillerdalit/IdeaProjects/cookingrecipe/xml/recipe.xml";
-    String myRecipePath = "/Users/guillerdalit/IdeaProjects/cookingrecipe/xml/myfavorites.xml";
     String accessPath = "/Users/guillerdalit/IdeaProjects/cookingrecipe/xml/access.xml";
     String followingPath = "/Users/guillerdalit/IdeaProjects/cookingrecipe/xml/following.xml";
+    String favoritePath = "/Users/guillerdalit/IdeaProjects/cookingrecipe/xml/myfavorites.xml";
 
     //Dummy variables
     Account new_account = null;
@@ -56,9 +56,9 @@ public class Controller extends HttpServlet {
     Password new_password = null;
     Post new_post = null;
     Recipe new_recipe = null;
-    Account new_myrecipe = null;
     Access new_access = null;
     Follower new_follower = null;
+    Favorite new_favorite = null;
 
 
     public Controller (){
@@ -79,9 +79,9 @@ public class Controller extends HttpServlet {
             readXML(passwordPath, "password");
             readXML(postPath, "post");
             readXML(recipePath, "recipe");
-            readXML(myRecipePath, "myrecipe");
             readXML(accessPath, "access");
             readXML(followingPath, "following");
+            readXML(favoritePath, "myfavorite");
             dbIsSetup = true;
             connection.close();
         }
@@ -104,9 +104,9 @@ public class Controller extends HttpServlet {
             case "password": new_password = new Password(); break;
             case "post": new_post = new Post(); break;
             case "recipe": new_recipe = new Recipe(); break;
-            case "myrecipe": new_myrecipe = new Account(); break;
             case "access": new_access = new Access(); break;
             case "following": new_follower = new Follower(); break;
+            case "myfavorite": new_favorite = new Favorite(); break;
         }
     }
     public void readXML(String path, String tagName){
@@ -152,14 +152,14 @@ public class Controller extends HttpServlet {
                             if (new_recipe != null){
                                 insertRecipe(element, new_recipe);
                             }
-                            if (new_myrecipe != null){
-                                insertMyRecipe(element, new_myrecipe);
-                            }
                             if (new_access != null){
                                 insertMyAccess(element, new_access);
                             }
                             if (new_follower != null){
                                 insertMyNewFollower(element, new_follower);
+                            }
+                            if (new_favorite != null){
+                                insertMyNewFavorite(element, new_favorite);
                             }
 
 
@@ -174,8 +174,9 @@ public class Controller extends HttpServlet {
                 new_password = null;
                 new_post = null;
                 new_recipe = null;
-                new_myrecipe = null;
                 new_access = null;
+                new_favorite = null;
+                new_follower = null;
             }
         }
         catch (ParserConfigurationException e){
@@ -307,21 +308,6 @@ public class Controller extends HttpServlet {
         }
 
     }
-    public void insertMyRecipe(Element element, Account new_myrecipe) throws Exception {
-        if (element.getTagName().compareTo("account_id") == 0){
-            new_myrecipe.setAccount_id(Integer.parseInt(element.getTextContent()));
-        }
-        else if (element.getTagName().compareTo("recipe_id") == 0){
-            new_myrecipe.setMyRecipe(Integer.parseInt(element.getTextContent()));
-        }
-        else if (element.getTagName().compareTo("date_added") == 0){
-            new_myrecipe.setDatePosted(element.getTextContent());
-        }
-        if (new_myrecipe.getAccount_id() != -1 && new_myrecipe.getMyRecipe() != -1 && new_myrecipe.getDatePosted().compareTo("N/E") != 0){
-            dbHandler.insertMyRecipeToDB(new_myrecipe.getAccount_id(), new_myrecipe.getMyRecipe(), new_myrecipe.getDatePosted());
-        }
-
-    }
 
     public void insertMyAccess(Element element, Access new_access) throws Exception {
         if (element.getTagName().compareTo("account_id") == 0){
@@ -343,7 +329,20 @@ public class Controller extends HttpServlet {
             new_follower.setFollower_id(Integer.parseInt(element.getTextContent()));
         }
         if (new_follower.getAccountID() != -1 && new_follower.getFollower_id() != -1){
+            System.out.println("Twice");
             dbHandler.insertFollowingToDB(new_follower.getAccountID(), new_follower.getFollower_id());
+        }
+    }
+
+    public void insertMyNewFavorite(Element element, Favorite new_favorite) throws Exception {
+        if (element.getTagName().compareTo("account_id") == 0){
+            new_favorite.setAccount_id(Integer.parseInt(element.getTextContent()));
+        }
+        else if (element.getTagName().compareTo("recipe_id") == 0){
+            new_favorite.setRecipe_id(Integer.parseInt(element.getTextContent()));
+        }
+        if (new_favorite.getAccount_id() != -1 && new_favorite.getRecipe_id() != -1){
+            dbHandler.insertMyFavoriteToDB(new_favorite.getAccount_id(), new_favorite.getRecipe_id());
         }
 
     }
