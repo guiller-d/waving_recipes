@@ -35,8 +35,10 @@
 <!-- https://coolors.co/588b8b-ffffff-ffd5c2-f28f3b-c8553d -->
 <style>
     body {
-        background-image: url("./Images/main-background.jpg");
+        background-image: url("Images/main-background.jpg");
         background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
     }
 </style>
 <body>
@@ -56,10 +58,12 @@
                 <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                <div style="margin-left: 15px;"><!-- Create a method in which it will print out new recipe in the mainpage-->
+                    <form action="mainpage.jsp" method="post" class="form-inline my-2 my-lg-0">
+                        <%--@declare id="recipelist"--%><input input type="text" name ="recipeSearch" list="recipeList" class="form-control mr-sm-2" placeholder="Search...">
+                        <button class="btn btn-primary" type="submit" name="search">Search</button>
+                    </form>
+                </div>
             </li>
         </ul>
         <form action="mainpage.jsp" method="post">
@@ -79,12 +83,7 @@
     </div>
 </nav>
 
-<div><!-- Create a method in which it will print out new recipe in the mainpage-->
-    <form action="mainpage.jsp" method="post" class="form-inline my-2 my-lg-0">
-        <%--@declare id="recipelist"--%><input input type="text" name ="recipeSearch" list="recipeList" class="form-control mr-sm-2" placeholder="Search...">
-        <button class="btn btn-primary" type="submit" name="search">Search</button>
-    </form>
-</div>
+
 
 <%  WebHandler webHandler = new WebHandler();
     DBHandler dbHandler = new DBHandler();
@@ -171,6 +170,30 @@
                             e.printStackTrace();
                         }
 
+                        ArrayList <Integer>  myFavoriteList = new ArrayList<Integer>();
+                        HttpSession sess = request.getSession(false); //use false to use the existing session
+                        String currentUser = (String) sess.getAttribute("currentUserName");//this will return username anytime in the session
+                        int currentUserID = (int) sess.getAttribute("currentUserID");//this will return id anytime in the session
+                        /**************************************************************************
+                         * get all my favorites
+                         **************************************************************************/
+                        try{
+                            Connection connection = dbHandler.startConnection();
+                            Statement statement = connection.createStatement();
+                            ResultSet rs = statement.executeQuery("SELECT * FROM recipe NATURAL JOIN myfavorite WHERE account_id='"+currentUserID+"'");
+
+                            while (rs.next()){
+                                myFavoriteList.add(rs.getInt("recipe_id"));
+                            }
+                            rs.close();
+                            statement.close();
+                            connection.close();
+                        }
+                        catch (Exception e){
+                            e.printStackTrace();
+                        }
+                        sess = request.getSession();
+                        sess.setAttribute("myFavoriteList", myFavoriteList);
 
                         /**************************************************************************
                          * getting owners username
@@ -194,7 +217,6 @@
                                     }
                                 }
                             }
-
                             rs.close();
                             statement.close();
                             connection.close();
@@ -210,19 +232,22 @@
                             Connection connection = dbHandler.startConnection();
                             Statement stmt = connection.createStatement();
                             ResultSet rs;
+                            //display search
                             if (request.getParameter("search") != null){
                                 String recipeInSearch = request.getParameter("recipeSearch");
                                 recipeInSearch = "%" + recipeInSearch + "%";
                                 rs = stmt.executeQuery("SELECT * FROM recipe WHERE recipe_name LIKE '"+recipeInSearch+"'");
-                            }
+                            }//display deafult
                             else{
                                 rs = stmt.executeQuery("SELECT * FROM recipe");
-                                System.out.println("Only happen onces");
                             }
                             int recipeID;
                             String recipeName;
                             String imagePath;
                             int index = 0;
+                            String gotoRecipe = "";
+                            String addToFavorites = "";
+                            String unAddToFavorites = "";
 
                             while (rs.next()) {
                                 recipeID = rs.getInt("recipe_id");
@@ -231,29 +256,29 @@
                                 if ((index % 4) == 0 || index == 0){
                                     out.println( "<div class=\"row\">\n");
                                 }
-                                out.println( "<div class=\"col\" name =''"+recipeID+"'" + ">\n" +
+                                out.println( "<div class=\"col d-flex\" name =''"+recipeID+"'" + ">\n" +
                                         "        <div class=\"card\" style=\"width: 15rem;\">\n" +
-                                        "             <img src='"+imagePath+"'" +" class=\"card-img-top\" alt=\"...\" width=\"150\" height=\"200\" >\n");
-                                if (request.getParameter("addToFavorite") != null) { //if the user click
-                                    //TODO:
-                                    System.out.println("It was clicked");
-                                }
-                                out.println("<div class=\"card-body\">\n" +
-                                        "               <h5 class=\"card-title\">'"+recipeName+"'</h5>\n" + "");
-
+                                        "             <img src='"+imagePath+"'" +" class=\"card-img-top\" alt=\"...\" width=\"150\" height=\"200\" >\n" +
+                                        "                 <div class=\"card-body\">\n" +
+                                        "                     <h5 class=\"card-title\">'"+recipeName+"'</h5>\n" + "");
                                 for (int i = 0; i < uploadedRecipes.size(); i++){
                                     if (uploadedRecipes.get(i) == recipeID){
                                         out.println("<footer class=\"blockquote-footer text-right\">'"+OwnersUsernames.get(i)+"'</footer>\n");
                                         break;
                                     }
                                 }
-                                out.println("<form action=\"/mainpage\" method=\"post\">\n" +
-                                        "                        <button class=\"btn btn-primary\" type=\"submit\" name='"+recipeID+"'" + ">GO to recipe\n" + "  ");
+                                gotoRecipe = "gotoRecipe"+recipeID;
+                                addToFavorites = "addToFavorites"+recipeID;
+                                unAddToFavorites = "unAddToFavorites"+recipeID;
 
-                                if (myFavList.contains(recipeID)){
-                                    out.println("<button class=\"btn btn-primary\" type=\"submit\" name='"+recipeID+"'" + ">Is My Favorite\n");
+                                out.println("<form action=\"/mainpage\" method=\"post\">\n" +
+                                        "        <button class=\"btn btn-primary\" type=\"submit\" name='"+gotoRecipe+"'" + ">GO to recipe\n" + "  ");
+                                if (myFavoriteList.contains(recipeID)){
+                                    //out.println("<img onclick=\"\" class=\"fav-icon\"  name='"+unAddToFavorites+"'\" title=\"Add to favorite\" src=\"./Images/heart-filled-red.png\">");
+                                    out.println("<button class=\"btn btn-primary\" type=\"submit\" name='"+unAddToFavorites+"'" + ">Is My Favorite\n");
                                 }else{
-                                    out.println("<button class=\"btn btn-primary\" type=\"submit\" name='"+recipeID+"'" + ">Add to Favorites\n");
+                                    //out.println("<img onclick=\"\" class=\"fav-icon\" title=\"Add to favorite\" name='"+addToFavorites+"'\" src=\"./Images/heart-empty-black.png\">");
+                                    out.println("<button class=\"btn btn-primary\" type=\"submit\" name='"+addToFavorites+"'" + ">Add to Favorites\n");
                                 }
                                 out.println("</button>\n" +
                                         "                   </form>       " +
@@ -277,33 +302,43 @@
                          * Go back to mainpage
                          **************************************************************************/
                         if (request.getParameter("home") != null){
-                            request.getRequestDispatcher("/mainpage.jsp").forward(request, response);
+                            response.sendRedirect("/mainpage.jsp");
                         }
                         /**************************************************************************
                          * Logging OUT, NO SESSION implementation, basic logout
                          **************************************************************************/
                         if (request.getParameter("logoutInDisplay") != null){
-                            request.getRequestDispatcher("/login.jsp").forward(request, response);
+                            response.sendRedirect("/login.jsp");
+                            //request.getRequestDispatcher("/login.jsp").forward(request, response);
+                        }
+                        /**************************************************************************
+                         * Show My Recipe
+                         **************************************************************************/
+                        if (request.getParameter("myRecipe") != null){
+                            response.sendRedirect("/myrecipe.jsp");
+                            //request.getRequestDispatcher("/myrecipe.jsp").forward(request, response);
                         }
 
                         /**************************************************************************
                          * Show My Recipe
                          **************************************************************************/
-                        if (request.getParameter("myRecipe") != null){
-                            request.getRequestDispatcher("/myrecipe.jsp").forward(request, response);
+                        if (request.getParameter("myFavorites") != null){
+                            response.sendRedirect("/myfavorite.jsp");
+                            //request.getRequestDispatcher("/myrecipe.jsp").forward(request, response);
                         }
                         /**************************************************************************
                          * Add Recipe
                          **************************************************************************/
                         if (request.getParameter("addRecipe") != null){
-                            request.getRequestDispatcher("/addRecipe.jsp").forward(request, response);
+                            response.sendRedirect("/addRecipe.jsp");
+                            //request.getRequestDispatcher("/addRecipe.jsp").forward(request, response);
                         }
-
                         /**************************************************************************
-                         * Goto my followers page
+                         * go tp followers
                          **************************************************************************/
                         if (request.getParameter("following") != null){
-                            request.getRequestDispatcher("/follower.jsp").forward(request, response);
+                            response.sendRedirect("/follower.jsp");
+                            //request.getRequestDispatcher("/addRecipe.jsp").forward(request, response);
                         }
                     %>
                 </div>

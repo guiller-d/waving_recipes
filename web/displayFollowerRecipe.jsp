@@ -1,20 +1,20 @@
+<%@ page import="webapp.WebHandler" %>
 <%@ page import="controller.DBHandler" %>
 <%@ page import="java.sql.Connection" %>
 <%@ page import="java.sql.Statement" %>
 <%@ page import="java.sql.ResultSet" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="webapp.WebHandler" %><%--
+<%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: guillerdalit
-  Date: 7/31/20
-  Time: 3:51 PM
+  Date: 7/30/20
+  Time: 8:41 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Follower</title>
+    <title>My Recipe</title>
     <link rel="icon shortcut" href="./Images/icon.png">
     <link rel="stylesheet" href="Style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -29,7 +29,7 @@
 
 <style>
     body {
-        background-image: url("./Images/follower-bg.jpg");
+        background-image: url("./Images/myRecipe-bg.jpg");
         background-size: 100% 100%;
         background-repeat: no-repeat;
         background-attachment: fixed;
@@ -53,7 +53,7 @@
                 <a class="nav-link" href="#">About</a>
             </li>
         </ul>
-        <form action="follower.jsp" method="post">
+        <form action="displayFollowerRecipe.jsp" method="post">
             <div class="dropdown">
                 <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     ${currentUserName}
@@ -69,49 +69,69 @@
         </form>
     </div>
 </nav>
-<h2>Followers</h2>
+<h2 style="color:white;">My Recipe</h2>
+
 <div class="container-fluid">
     <div class="row flex-xl-nowrap">
         <div class="mx-auto col-xl-11 main-background">
-            <!--display followers-->
-            <div style="margin: 30px;">
-                <ul class="list-group list-group-flush">
+
+            <!--display recipes-->
+            <div class="container" style="margin-bottom: 15px; margin-top: 15px;">
+                <div class="row">
+
                     <%
-                        DBHandler dbHandler = new DBHandler();
                         WebHandler webHandler = new WebHandler();
-                        HttpSession sess = request.getSession(false); //use false to use the existing session
-                        String currentUser = (String) sess.getAttribute("currentUserName");//this will return username anytime in the session
-                        int currentUserID = (int) sess.getAttribute("currentUserID");//this will return id anytime in the session
-                        ArrayList<Integer> followerIDList = new  ArrayList<Integer>();
-                        ArrayList<String> followerNameList = new  ArrayList<String>();
+                        DBHandler dbHandler = new DBHandler();
+
+                        /**************************************************************************
+                         * Displaying Follower Recipe
+                         **************************************************************************/
+
+                        ArrayList<Integer> recipeIdList = new ArrayList<Integer>();
+                        ArrayList<String> recipeNameList = new ArrayList<String>();
+                        ArrayList<String> recipStepList = new ArrayList<String>();
+                        ArrayList<String> imagePathList = new ArrayList<String>();
+                        HttpSession sess = request.getSession(false);
+                        int  theClickId = (int) sess.getAttribute("theClickId");
+
                         try{
                             Connection connection = dbHandler.startConnection();
                             Statement statement = connection.createStatement();
-                            ResultSet rs = statement.executeQuery("SELECT a.account_id, a.username FROM account a JOIN following f ON f.follower_id = a.account_id WHERE f.account_id='"+currentUserID+"'");
-
+                            ResultSet rs = statement.executeQuery("SELECT * FROM recipe r NATURAL JOIN access a WHERE a.account_id='"+theClickId+"'");
+                            int recipeID = 0;
                             while (rs.next()){
-                                followerIDList.add(rs.getInt("account_id"));
-                                followerNameList.add(rs.getString("username"));
+                                recipeID = rs.getInt("recipe_id");
+                                imagePathList.add(webHandler.getImage(recipeID));
+                                recipeIdList.add(rs.getInt("recipe_id"));
+                                recipeNameList.add(rs.getString("recipe_name"));
+                                recipStepList.add(rs.getString("step"));
                             }
                             rs.close();
                             statement.close();
                             connection.close();
-                            for (int index = 0; index <followerIDList.size(); index++ ){
-                                System.out.print(followerNameList.get(index) + " "+ followerIDList.get(index));
-
-                                out.println("<li class=\"list-group-item\">\n" +
-                                        "      <form action=\"/follower\" method=\"post\">\n" +
-                                        "           <label>'"+followerNameList.get(index)+"'</label>\n" +
-                                        "                 <button style=\"float: right;\" type=\"submit\"  name='"+followerIDList.get(index)+"'\" class=\"btn btn-primary\">Check Recipes</button>\n" +
-                                        "           </form>\n" +
-                                        "      </li>");
-
-                            }
-
                         }
-                        catch(Exception e){
+                        catch (Exception e){
                             e.printStackTrace();
                         }
+
+                        for (int index = 0 ;index < recipeIdList.size(); index++ ){
+                            if ((index % 4) == 0 || index == 0) {
+                                out.println("<div class=\"row\">\n");
+                            }
+                            out.println("<div class=\"col d-flex\" name =''" + recipeIdList.get(index) + "'" + ">\n" +
+                                    "        <div class=\"card\" style=\"width: 15rem;\">\n" +
+                                    "             <img src='" + imagePathList.get(index) + "'" + " class=\"card-img-top\" alt=\"...\" width=\"150\" height=\"200\" >\n" +
+                                    "               <div class=\"card-body\">\n" +
+                                    "                   <h5 class=\"card-title\">'" + recipeNameList.get(index) + "'</h5>\n" + "" +
+                                    "                   <footer class=\"blockquote-footer text-right\" style=\"color: green\">Public</footer>" +
+                                    "                </div>\n" +
+                                    "        </div>\n" +
+                                    "    </div>\n");
+                            if ((index % 4) == 3) {
+                                out.println("</div>\n");
+                            }
+                        }
+
                         /**************************************************************************
                          * Go back to mainpage
                          **************************************************************************/
@@ -156,12 +176,12 @@
                         }
                     %>
 
-                </ul>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
+
+</div>
 </body>
 </html>
-

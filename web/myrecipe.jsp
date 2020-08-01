@@ -4,7 +4,7 @@
 <%@ page import="java.sql.Statement" %>
 <%@ page import="java.sql.ResultSet" %><%--
   Created by IntelliJ IDEA.
-  User: Guiller Dalit and Mina Lee
+  User: guillerdalit
   Date: 7/30/20
   Time: 8:41 PM
   To change this template use File | Settings | File Templates.
@@ -30,6 +30,8 @@
     body {
         background-image: url("./Images/myRecipe-bg.jpg");
         background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
     }
 </style>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -50,7 +52,7 @@
                 <a class="nav-link" href="#">About</a>
             </li>
         </ul>
-        <form action="mainpage.jsp" method="post">
+        <form action="myrecipe.jsp" method="post">
             <div class="dropdown">
                 <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     ${currentUserName}
@@ -71,7 +73,6 @@
 <div class="container-fluid">
     <div class="row flex-xl-nowrap">
         <div class="mx-auto col-xl-11 main-background">
-
             <!--display recipes-->
             <div class="container" style="margin-bottom: 15px; margin-top: 15px;">
                 <div class="row">
@@ -83,16 +84,20 @@
                         /**************************************************************************
                          * Displaying My Recipe
                          **************************************************************************/
+                        HttpSession sess = request.getSession(false); //use false to use the existing session
+                        String currentUser = (String) sess.getAttribute("currentUserName");//this will return username anytime in the session
+                        int currentUserID = (int) sess.getAttribute("currentUserID");//this will return id anytime in the session
                         try {
                             Connection connection = dbHandler.startConnection();
                             Statement stmt = connection.createStatement();
-                            ResultSet rs = stmt.executeQuery("SELECT * FROM recipe NATURAL JOIN access");
-
+                            ResultSet rs = stmt.executeQuery("SELECT * FROM recipe NATURAL JOIN access WHERE account_id='"+currentUserID+"'");
                             int recipeID;
                             String recipeName;
                             String imagePath;
                             int index = 0;
 
+                            String delete = "";
+                            String edit = "";
                             while (rs.next()) {
                                 recipeID = rs.getInt("recipe_id");
                                 recipeName = rs.getString("recipe_name");
@@ -105,12 +110,18 @@
                                 if ((index % 4) == 0 || index == 0) {
                                     out.println("<div class=\"row\">\n");
                                 }
-                                out.println("<div class=\"col\" name =''" + recipeID + "'" + ">\n" +
+                                delete = "delete"+recipeID;
+                                edit = "edit"+recipeID;
+                                out.println("<div class=\"col d-flex\" name =''" + recipeID + "'" + ">\n" +
                                         "        <div class=\"card\" style=\"width: 15rem;\">\n" +
                                         "             <img src='" + imagePath + "'" + " class=\"card-img-top\" alt=\"...\" width=\"150\" height=\"200\" >\n" +
                                         "               <div class=\"card-body\">\n" +
                                         "                   <h5 class=\"card-title\">'" + recipeName + "'</h5>\n" + "" +
                                         "                   <footer class=\"blockquote-footer text-right\" style=\"color: green\">Public</footer>" +
+                                        "                    <form action=\"/myrecipe\" method=\"post\">\n" +
+                                        "                 <button class=\"btn btn-primary\" type=\"submit\" name='"+delete+"'\" + \">Delete\n" +
+                                        "                 <button class=\"btn btn-primary\" type=\"submit\" name='"+edit+"'\" + \">Edit\n" +
+                                        "            </form>\n"  +
                                         "                </div>\n" +
                                         "        </div>\n" +
                                         "    </div>\n");
@@ -131,35 +142,49 @@
                          * Go back to mainpage
                          **************************************************************************/
                         if (request.getParameter("home") != null){
-                            request.getRequestDispatcher("/mainpage.jsp").forward(request, response);
+                            response.sendRedirect("/mainpage.jsp");
                         }
                         /**************************************************************************
                          * Logging OUT, NO SESSION implementation, basic logout
                          **************************************************************************/
                         if (request.getParameter("logoutInDisplay") != null){
-                            request.getRequestDispatcher("/login.jsp").forward(request, response);
+                            response.sendRedirect("/login.jsp");
+                            //request.getRequestDispatcher("/login.jsp").forward(request, response);
+                        }
+                        /**************************************************************************
+                         * Show My Recipe
+                         **************************************************************************/
+                        if (request.getParameter("myRecipe") != null){
+                            response.sendRedirect("/myrecipe.jsp");
+                            //request.getRequestDispatcher("/myrecipe.jsp").forward(request, response);
                         }
 
                         /**************************************************************************
                          * Show My Recipe
                          **************************************************************************/
-                        if (request.getParameter("myRecipe") != null){
-                            request.getRequestDispatcher("/myrecipe.jsp").forward(request, response);
+                        if (request.getParameter("myFavorites") != null){
+                            response.sendRedirect("/myfavorite.jsp");
+                            //request.getRequestDispatcher("/myrecipe.jsp").forward(request, response);
                         }
                         /**************************************************************************
                          * Add Recipe
                          **************************************************************************/
                         if (request.getParameter("addRecipe") != null){
-                            request.getRequestDispatcher("/addRecipe.jsp").forward(request, response);
+                            response.sendRedirect("/addRecipe.jsp");
+                            //request.getRequestDispatcher("/addRecipe.jsp").forward(request, response);
+                        }
+                        /**************************************************************************
+                         * go tp followers
+                         **************************************************************************/
+                        if (request.getParameter("following") != null){
+                            response.sendRedirect("/follower.jsp");
+                            //request.getRequestDispatcher("/addRecipe.jsp").forward(request, response);
                         }
                     %>
-
                 </div>
             </div>
         </div>
     </div>
-
-
 </div>
 </body>
 </html>

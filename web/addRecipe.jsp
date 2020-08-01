@@ -62,9 +62,10 @@
                 <div>
                     <textarea name="addRecipeStep" rows="15" cols="100"></textarea>
                 </div>
-
                 <input type="submit" value="Upload Recipe" class="btn btn-primary"/>
             </form>
+
+
         </div>
         <div class="d-none d-xl-block col-xl-2 bd-toc">
         </div>

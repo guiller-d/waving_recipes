@@ -1,6 +1,6 @@
 <%@ page import="controller.Controller" %><%--
   Created by IntelliJ IDEA.
-  User: Sushil Karki
+  User: guillerdalit
   Date: 7/24/20
   Time: 10:10 AM
   To change this template use File | Settings | File Templates.
@@ -25,7 +25,7 @@
             <input type="username" placeholder="Username"  name="username" />
             <input type="Password" placeholder="password" name="password" />
             <input type="Password" placeholder="VerifyPassword" name="password_repeat" />
-            <button type = "submit" name="signon">Sign Up</button>
+            <button type = "submit" name="register">Sign Up</button>
         </form>
 
 
@@ -73,5 +73,72 @@
         container.classList.remove('right-panel-active');
     });
 </script>
+
 </body>
+
 </html>
+
+<%--
+<html>
+<head>
+    <title>Login Page</title>
+    <link rel="stylesheet" href="login.css">
+
+</head>
+
+
+<body>
+
+
+<form action="/login" method="post" class="form">
+    <h1>SIGN IN</h1>
+    <label for="username"><b><em>Username</em></b></label>
+    <input type="text" placeholder="Enter Username" name="username" required>
+    <label for="password"><b><em>Password</em></b></label>
+    <input type="password" placeholder="Enter Password" name="password" required>
+
+    <label>
+        <input type="checkbox" checked="checked"name="Remember Me"> Remember Me
+    </label>
+    <br/>
+    <button type="submit" name="login" id="somebutton">SIGN IN</button>
+
+    <br/>
+    <div class="container">
+        <span class="psw"> <a href="#">Forgot Password?</a></span>
+    </div>
+</form>
+<br/>
+<br/>
+<br/>
+
+<div class = "middle-container">
+    <h1> Don't have account yet? <h1>
+</div>
+<form action="/register" method="post" class="form">
+    <button type="submit" name="register">Register</button>
+</form>
+
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<p style="color:red";>${errorMessage}</p>
+
+
+
+
+<%
+    /*********
+     following.jsp
+     myRecipe.jsp
+
+     addRecipe button
+     heart (empty and solid) RED
+     Favorite page
+
+
+    ****/
+
+%>
+</body>
+</html> --%>
+
+
