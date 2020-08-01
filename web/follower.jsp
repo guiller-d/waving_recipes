@@ -1,8 +1,13 @@
-<%--
+<%@ page import="controller.DBHandler" %>
+<%@ page import="java.sql.Connection" %>
+<%@ page import="java.sql.Statement" %>
+<%@ page import="java.sql.ResultSet" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="webapp.WebHandler" %><%--
   Created by IntelliJ IDEA.
-  User: mina8
-  Date: 7/31/2020
-  Time: 2:36 PM
+  User: Guiller Dalit and Mina Lee
+  Date: 7/31/20
+  Time: 3:51 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -10,7 +15,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Follower</title>
-    <link rel="icon shortcut" href="./img/icon.png">
+    <link rel="icon shortcut" href="./Images/icon.png">
     <link rel="stylesheet" href="Style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
@@ -24,15 +29,13 @@
 
 <style>
     body {
-        background-image: url("./images/follower-bg.jpg");
+        background-image: url("./Images/follower-bg.jpg");
         background-size: 100% 100%;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
     }
 </style>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">
-        <img src="./img/icon.png" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+        <img src="./Images/icon.png" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
         Cooking Recipe
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,88 +64,54 @@
     </div>
 </nav>
 <h2>Followers</h2>
-
 <div class="container-fluid">
     <div class="row flex-xl-nowrap">
         <div class="mx-auto col-xl-11 main-background">
-
-            <%
-                /**************************************************************************
-                 * Displaying Followers
-                 **************************************************************************/
-                    Connection connection = dbHandler.startConnection();
-                    Statement stmt = connection.createStatement();
-                    ResultSet rs = stmt.executeQuery("SELECT * FROM account natural join following where follow_id = "+ );
-
-                    int recipeID;
-                    String recipeName;
-                    String imagePath;
-                    int index = 0;
-                    while (rs.next()) {
-                        recipeID = rs.getInt("recipe_id");
-                        recipeName = rs.getString("recipe_name");
-                        imagePath = webHandler.getImage(recipeID);
-
-                        if ((index % 4) == 0 || index == 0){
-                            out.println( "<div class=\"row\">\n");
-                        }
-                        out.println( "<div class=\"col\" name =''"+recipeID+"'" + ">\n" +
-                                "        <div class=\"card\" style=\"width: 15rem;\">\n" +
-                                "             <img src='"+imagePath+"'" +" class=\"card-img-top\" alt=\"...\" width=\"150\" height=\"200\" >\n" +
-                                "               <div class=\"card-body\">\n" +
-                                "                   <h5 class=\"card-title\">'"+recipeName+"'</h5>\n" + "" +
-                                "            <footer class=\"blockquote-footer text-right\">'"+recipeName+"'</footer>\n" +
-                                "                   <form action=\"/mainpage\" method=\"post\">\n" +
-                                "                        <button class=\"btn btn-primary\" type=\"submit\" name='"+recipeID+"'" + ">GO to recipe\n" + "  " +
-                                "                        <button class=\"btn btn-primary\" type=\"submit\" name='"+recipeID+"'" + ">Add to Favorites\n" +
-                                "                        </button>\n" +
-                                "                   </form>       " +
-                                "                 </div>\n" +
-                                "            </div>\n" +
-                                "        </div>\n");
-                        if ((index % 4) == 3){
-                            out.println( "</div>\n");
-                        }
-                        index++;
-                    }
-
-                    out.println( "</div>\n");
-                    rs.close();
-                    stmt.close();
-                    connection.close();
-                }
-                catch(Exception e) {
-                    System.out.println("SQLException caught: " + e.getMessage());
-                }
-
-                /**************************************************************************
-                 * Logging OUT, NO SESSION implementation, basic logout
-                 **************************************************************************/
-                if (request.getParameter("logoutInDisplay") != null){
-                    response.sendRedirect("/login.jsp");
-
-                }
-            %>
             <!--display followers-->
             <div style="margin: 30px;">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Follower Username
-                        <button type="button" class="btn btn-primary">Check Recipes</button>
-                    </li>
-                    <li class="list-group-item">Follower Username
-                        <button type="button" class="btn btn-primary">Check Recipes</button>
-                    </li>
-                    <li class="list-group-item">Follower Username
-                        <button type="button" class="btn btn-primary">Check Recipes</button>
-                    </li>
-                    <li class="list-group-item">Follower Username
-                        <button type="button" class="btn btn-primary">Check Recipes</button>
-                    </li>
+                    <%
+                        DBHandler dbHandler = new DBHandler();
+                        WebHandler webHandler = new WebHandler();
+                        HttpSession sess = request.getSession(false); //use false to use the existing session
+                        String currentUser = (String) sess.getAttribute("currentUserName");//this will return username anytime in the session
+                        int currentUserID = (int) sess.getAttribute("currentUserID");//this will return id anytime in the session
+                        ArrayList<Integer> followerIDList = new  ArrayList<Integer>();
+                        ArrayList<String> followerNameList = new  ArrayList<String>();
+                        try{
+                            Connection connection = dbHandler.startConnection();
+                            Statement statement = connection.createStatement();
+                            ResultSet rs = statement.executeQuery("SELECT a.account_id, a.username FROM account a JOIN following f ON f.follower_id = a.account_id WHERE f.account_id='"+currentUserID+"'");
+
+                            while (rs.next()){
+                                followerIDList.add(rs.getInt("account_id"));
+                                followerNameList.add(rs.getString("username"));
+                            }
+                            rs.close();
+                            statement.close();
+                            connection.close();
+                            for (int index = 0; index <followerIDList.size(); index++ ){
+                                System.out.print(followerNameList.get(index) + " "+ followerIDList.get(index));
+
+                                out.println("<li class=\"list-group-item\">\n" +
+                                        "      <form action=\"/follower\" method=\"post\">\n" +
+                                        "           <label>'"+followerNameList.get(index)+"'</label>\n" +
+                                        "                 <button style=\"float: right;\" type=\"submit\"  name='"+followerIDList.get(index)+"'\" class=\"btn btn-primary\">Check Recipes</button>\n" +
+                                        "           </form>\n" +
+                                        "    </li>");
+
+                            }
+
+                        }
+                        catch(Exception e){
+                            e.printStackTrace();
+                        }
+                    %>
+
                 </ul>
             </div>
         </div>
     </div>
-
 </div>
 
 </body>

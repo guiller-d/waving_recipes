@@ -4,7 +4,7 @@
 <%@ page import="java.sql.Statement" %>
 <%@ page import="java.sql.ResultSet" %><%--
   Created by IntelliJ IDEA.
-  User: guillerdalit
+  User: Guiller Dalit and Mina Lee
   Date: 7/30/20
   Time: 8:41 PM
   To change this template use File | Settings | File Templates.
@@ -30,8 +30,6 @@
     body {
         background-image: url("./Images/myRecipe-bg.jpg");
         background-size: 100% 100%;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
     }
 </style>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -58,8 +56,10 @@
                     ${currentUserName}
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <button type="submit" class="dropdown-item" name="home">Home</button>
                     <button type="submit" class="dropdown-item" name="myRecipe">My Recipe</button>
-                    <button type="submit" class="dropdown-item" name="following">Following</button>
+                    <button type="submit" class="dropdown-item" name="myFavorites">Favorites</button>
+                    <button type="submit" class="dropdown-item" name="following">Followers</button>
                     <button type="submit" class="dropdown-item" name="logoutInDisplay">Logout</button>
                 </div>
             </div>
@@ -105,7 +105,7 @@
                                 if ((index % 4) == 0 || index == 0) {
                                     out.println("<div class=\"row\">\n");
                                 }
-                                out.println("<div class=\"col d-flex\" name =''" + recipeID + "'" + ">\n" +
+                                out.println("<div class=\"col\" name =''" + recipeID + "'" + ">\n" +
                                         "        <div class=\"card\" style=\"width: 15rem;\">\n" +
                                         "             <img src='" + imagePath + "'" + " class=\"card-img-top\" alt=\"...\" width=\"150\" height=\"200\" >\n" +
                                         "               <div class=\"card-body\">\n" +
@@ -128,18 +128,29 @@
                         }
 
                         /**************************************************************************
+                         * Go back to mainpage
+                         **************************************************************************/
+                        if (request.getParameter("home") != null){
+                            request.getRequestDispatcher("/mainpage.jsp").forward(request, response);
+                        }
+                        /**************************************************************************
                          * Logging OUT, NO SESSION implementation, basic logout
                          **************************************************************************/
                         if (request.getParameter("logoutInDisplay") != null){
-                            response.sendRedirect("/login.jsp");
-
+                            request.getRequestDispatcher("/login.jsp").forward(request, response);
                         }
+
                         /**************************************************************************
                          * Show My Recipe
                          **************************************************************************/
                         if (request.getParameter("myRecipe") != null){
-                            response.sendRedirect("/myrecipe.jsp");
-
+                            request.getRequestDispatcher("/myrecipe.jsp").forward(request, response);
+                        }
+                        /**************************************************************************
+                         * Add Recipe
+                         **************************************************************************/
+                        if (request.getParameter("addRecipe") != null){
+                            request.getRequestDispatcher("/addRecipe.jsp").forward(request, response);
                         }
                     %>
 

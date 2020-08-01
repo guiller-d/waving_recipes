@@ -9,7 +9,7 @@
 <%@ page import="java.util.Collection" %>
 <%@ page import="java.util.Collections" %><%--
   Created by IntelliJ IDEA.
-  User: guillerdalit
+  User: Guiller Dalit and Mina Lee
   Date: 7/24/20
   Time: 3:14 PM
   To change this template use File | Settings | File Templates.
@@ -37,8 +37,6 @@
     body {
         background-image: url("./Images/main-background.jpg");
         background-size: 100% 100%;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
     }
 </style>
 <body>
@@ -58,7 +56,10 @@
                 <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
             </li>
         </ul>
         <form action="mainpage.jsp" method="post">
@@ -78,7 +79,7 @@
     </div>
 </nav>
 
-<div style="margin-left: 15px;"><!-- Create a method in which it will print out new recipe in the mainpage-->
+<div><!-- Create a method in which it will print out new recipe in the mainpage-->
     <form action="mainpage.jsp" method="post" class="form-inline my-2 my-lg-0">
         <%--@declare id="recipelist"--%><input input type="text" name ="recipeSearch" list="recipeList" class="form-control mr-sm-2" placeholder="Search...">
         <button class="btn btn-primary" type="submit" name="search">Search</button>
@@ -230,7 +231,7 @@
                                 if ((index % 4) == 0 || index == 0){
                                     out.println( "<div class=\"row\">\n");
                                 }
-                                out.println( "<div class=\"col d-flex\" name =''"+recipeID+"'" + ">\n" +
+                                out.println( "<div class=\"col\" name =''"+recipeID+"'" + ">\n" +
                                         "        <div class=\"card\" style=\"width: 15rem;\">\n" +
                                         "             <img src='"+imagePath+"'" +" class=\"card-img-top\" alt=\"...\" width=\"150\" height=\"200\" >\n");
                                 if (request.getParameter("addToFavorite") != null) { //if the user click
@@ -296,6 +297,13 @@
                          **************************************************************************/
                         if (request.getParameter("addRecipe") != null){
                             request.getRequestDispatcher("/addRecipe.jsp").forward(request, response);
+                        }
+
+                        /**************************************************************************
+                         * Goto my followers page
+                         **************************************************************************/
+                        if (request.getParameter("following") != null){
+                            request.getRequestDispatcher("/follower.jsp").forward(request, response);
                         }
                     %>
                 </div>
