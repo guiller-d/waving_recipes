@@ -27,7 +27,7 @@
 
     <comment>
         <accountID>3</accountID>
-        <recipeID>1</recipeID>
+        <recipeID>7</recipeID>
         <username>Cali Smith</username>
         <text>YUM YUM...Chicken Dum Biryani, how do you make it?</text>
         <dateposted>2020-06-24</dateposted>
@@ -35,7 +35,7 @@
 
     <comment>
         <accountID>4</accountID>
-        <recipeID>1</recipeID>
+        <recipeID>8</recipeID>
         <username>Karen Cena</username>
         <text>Delicious Breakfast Burrito, Share your recipes</text>
         <dateposted>2020-06-24</dateposted>
@@ -43,7 +43,7 @@
 
     <comment>
         <accountID>5</accountID>
-        <recipeID>1</recipeID>
+        <recipeID>3</recipeID>
         <username>Demi Gonzales</username>
         <text>I love chicken mushroom pizza, how do you make it?</text>
         <dateposted>2020-06-25</dateposted>
@@ -51,7 +51,7 @@
 
     <comment>
         <accountID>6</accountID>
-        <recipeID>2</recipeID>
+        <recipeID>9</recipeID>
         <username>Belarus King</username>
         <text>WOW my favourite chicken curry, how do you make it?</text>
         <dateposted>2020-06-25</dateposted>
@@ -59,7 +59,7 @@
 
     <comment>
         <accountID>7</accountID>
-        <recipeID>1</recipeID>
+        <recipeID>5</recipeID>
         <username>Sarah Jen</username>
         <text>All time favourite Appetizer Samosa chat, how do you make it?</text>
         <dateposted>2020-06-25</dateposted>
@@ -67,7 +67,7 @@
 
     <comment>
         <accountID>8</accountID>
-        <recipeID>1</recipeID>
+        <recipeID>6</recipeID>
         <username>Damian Richards</username>
         <text>Amazing Food!!!</text>
         <dateposted>2020-06-26</dateposted>
@@ -75,7 +75,7 @@
 
     <comment>
         <accountID>9</accountID>
-        <recipeID>1</recipeID>
+        <recipeID>8</recipeID>
         <username>Bob Junior</username>
         <text>I love chicken momo, how do you make it?</text>
         <dateposted>2020-06-27</dateposted>
