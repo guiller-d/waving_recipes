@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<accounts>
+    <account>
+        <username>John Cena</username>
+        <login>0</login>
+    </account>
+    <account>
+        <username>John Smith</username>
+        <login>0</login>
+    </account>
+    <account>
+        <username>Alex Arizona</username>
+        <login>1</login>
+    </account>
+    <account>
+        <username>Cali Smith</username>
+        <login>0</login>
+    </account>
+    <account>
+        <username>Karen Cena</username>
+        <login>0</login>
+    </account>
+    <account>
+        <username>Demi Gonzales</username>
+        <login>0</login>
+    </account>
+    <account>
+        <username>Belarus King</username>
+        <login>1</login>
+    </account>
+    <account>
+        <username>Sarah Jen</username>
+        <login>0</login>
+    </account>
+    <account>
+        <username>Damian Richards</username>
+        <login>0</login>
+    </account>
+    <account>
+        <username>Bob Junior</username>
+        <login>1</login>
+    </account>
+</accounts>

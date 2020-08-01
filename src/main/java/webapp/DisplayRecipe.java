@@ -60,7 +60,4 @@ public class DisplayRecipe extends HttpServlet{
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
-    public void getRecipe(){
-        System.out.println("getting recipe");
-    }
 }

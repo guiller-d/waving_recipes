@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<myrecipes>
+    <myrecipe>
+        <account_id>1</account_id>
+        <recipe_id>2</recipe_id>
+        <date_added>2020-06-23</date_added>
+    </myrecipe>
+
+    <myrecipe>
+        <account_id>1</account_id>
+        <recipe_id>5</recipe_id>
+        <date_added>2020-06-23</date_added>
+    </myrecipe>
+
+    <myrecipe>
+        <account_id>2</account_id>
+        <recipe_id>3</recipe_id>
+        <date_added>2020-06-23</date_added>
+    </myrecipe>
+
+</myrecipes>

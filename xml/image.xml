@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<images>
+    <image>
+        <recipe_id>1</recipe_id>
+        <image>Images/10000_1.jpeg</image>
+    </image>
+
+    <image>
+        <recipe_id>2</recipe_id>
+        <image>Images/2.jpg</image>
+    </image>
+
+    <image>
+        <recipe_id>3</recipe_id>
+        <image>Images/3.jpeg</image>
+    </image>
+
+    <image>
+        <recipe_id>4</recipe_id>
+        <image>Images/4.jpg</image>
+    </image>
+
+    <image>
+        <recipe_id>5</recipe_id>
+        <image>Images/5.jpg</image>
+    </image>
+
+    <image>
+        <recipe_id>6</recipe_id>
+        <image>Images/6.jpg</image>
+    </image>
+
+    <image>
+        <recipe_id>7</recipe_id>
+        <image>Images/7.jpg</image>
+    </image>
+
+    <image>
+        <recipe_id>8</recipe_id>
+        <image>Images/8.jpg</image>
+    </image>
+
+    <image>
+        <recipe_id>9</recipe_id>
+        <image>Images/9.jpg</image>
+    </image>
+
+</images>
