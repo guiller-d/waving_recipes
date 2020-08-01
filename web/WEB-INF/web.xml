@@ -64,6 +64,17 @@
     </servlet-mapping>
 
 
+    <servlet>
+        <servlet-name>follower</servlet-name>
+        <servlet-class>webapp.Follower</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>follower</servlet-name>
+        <url-pattern>/follower</url-pattern>
+    </servlet-mapping>
+
+
 
 
 
