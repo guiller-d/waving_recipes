@@ -20,6 +20,7 @@ public class DBHandler {
 
         try{
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/cookingRecipe?autoReconnect=true&useSSL=false", user, password);
+
         }
         catch (Exception e){
             e.printStackTrace();
@@ -81,6 +82,26 @@ public class DBHandler {
         createSql = "CREATE TABLE IF NOT EXISTS comment (account_id INT NOT NULL, "
                 + " recipe_id INT NOT NULL, username VARCHAR(32) NOT NULL, text VARCHAR(300) NOT NULL, "
                 + " date_posted DATE)";
+        statement = connection.createStatement();
+        statement.execute(createSql);
+
+        // Create myrecipe table
+        createSql = "CREATE TABLE IF NOT EXISTS myrecipe (account_id INT NOT NULL, "
+                + " recipe_id INT NOT NULL, date_posted DATE)";
+
+        statement = connection.createStatement();
+        statement.execute(createSql);
+
+
+        // Create access  table
+        createSql = "CREATE TABLE IF NOT EXISTS access (account_id INT NOT NULL, "
+                + " recipe_id INT NOT NULL)";
+
+        // Create following  table
+        createSql = "CREATE TABLE IF NOT EXISTS following (account_id INT NOT NULL, "
+                + " follower_id INT NOT NULL)";
+
+
         statement = connection.createStatement();
         statement.execute(createSql);
         statement.close();// Close connectionconnection.close();}}
@@ -157,4 +178,33 @@ public class DBHandler {
         statement.execute(insertSql);
         statement.close();
     }
+    public void insertMyRecipeToDB(int accountID, int recipeID, String date_posted) throws Exception {
+
+        LocalDate localDate = LocalDate.parse(date_posted);
+        java.util.Date date = java.sql.Date.valueOf(localDate);
+
+        //   Connection connection = startConnection();
+        String insertSql = "INSERT IGNORE INTO myrecipe (account_id, recipe_id, date_posted) " + "VALUES ('"+accountID+"','"+recipeID+"', '"+date+"')";
+        Statement statement = connection.createStatement();
+        statement.execute(insertSql);
+        statement.close();
+    }
+
+    public void insertMyAccessToDB(int accountID, int recipeID) throws Exception {
+
+        //   Connection connection = startConnection();
+        String insertSql = "INSERT IGNORE INTO access (account_id, recipe_id) " + "VALUES ('"+accountID+"','"+recipeID+"')";
+        Statement statement = connection.createStatement();
+        statement.execute(insertSql);
+        statement.close();
+    }
+    public void insertFollowingToDB(int accountID, int follower_id) throws Exception {
+
+        //   Connection connection = startConnection();
+        String insertSql = "INSERT IGNORE INTO following (account_id, follower_id) " + "VALUES ('"+accountID+"','"+follower_id+"')";
+        Statement statement = connection.createStatement();
+        statement.execute(insertSql);
+        statement.close();
+    }
+
 }
