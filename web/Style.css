@@ -2,13 +2,13 @@
 .btn-primary:active,
 .btn-primary:visited,
 .btn-primary:focus {
-    background-color: #F28F3B !important;
-    border: 2px solid #F6B379 !important;
+    background-color: #FF6B6B !important;
+    border: 2px solid #FF6B6B !important;
 }
 .btn-primary {
     color: white !important;
-    background-color: #F28F3B !important;
-    border: 1px solid #F6B379 !important;
+    background-color: #FF6B6B !important;
+    border: 1px solid #FF6B6B !important;
 
 }
 .login-container {
