@@ -45,4 +45,9 @@
         <image>Images/9.jpg</image>
     </image>
 
+    <image>
+        <recipe_id>10</recipe_id>
+        <image>Images/10.jpeg</image>
+    </image>
+
 </images>

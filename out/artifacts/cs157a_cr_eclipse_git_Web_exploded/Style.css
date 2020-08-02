@@ -2,13 +2,13 @@
 .btn-primary:active,
 .btn-primary:visited,
 .btn-primary:focus {
-    background-color: #F28F3B !important;
-    border: 2px solid #F6B379 !important;
+    background-color: #FF6B6B !important;
+    border: 2px solid #FF6B6B !important;
 }
 .btn-primary {
     color: white !important;
-    background-color: #F28F3B !important;
-    border: 1px solid #F6B379 !important;
+    background-color: #FF6B6B !important;
+    border: 1px solid #FF6B6B !important;
 
 }
 .login-container {
@@ -30,4 +30,37 @@
 .main-background {
     margin: 30px;
     background-color: rgba(250, 250, 250, 0.8);
+}
+
+.comment-background {
+    margin-top: 30px;
+    margin-right: 50px;
+    padding: 15px;
+    background-color: rgba(50, 200, 250, 0.9);
+}
+
+.fav-icon {
+    position: absolute;
+    width: 30px;
+    margin: 5px;
+}
+.fav-icon:hover {
+    width: 35px;
+    cursor: pointer;
+}
+.add-recipe-btn {
+    color: #F28F3B;
+    box-shadow: 5px 10px 8px rgba(100, 100, 100, 0.5);
+    border-radius:50%;
+    width: 55px;
+    position: fixed;
+    bottom: 5%;
+    right: 3%;
+}
+.add-recipe-btn:hover {
+    width: 60px;
+}
+
+.row {
+    margin-bottom: 10px !important;
 }

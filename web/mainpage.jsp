@@ -7,7 +7,8 @@
 <%@ page import="webapp.WebHandler" %>
 <%@ page import="webapp.Mainpage" %>
 <%@ page import="java.util.Collection" %>
-<%@ page import="java.util.Collections" %><%--
+<%@ page import="java.util.Collections" %>
+<%@ page import="java.sql.DriverManager" %><%--
   Created by IntelliJ IDEA.
   User: Guiller Dalit and Mina Lee
   Date: 7/24/20
@@ -55,15 +56,14 @@
     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
-                <div style="margin-left: 15px;"><!-- Create a method in which it will print out new recipe in the mainpage-->
-                    <form action="mainpage.jsp" method="post" class="form-inline my-2 my-lg-0">
-                        <%--@declare id="recipelist"--%><input input type="text" name ="recipeSearch" list="recipeList" class="form-control mr-sm-2" placeholder="Search...">
-                        <button class="btn btn-primary" type="submit" name="search">Search</button>
-                    </form>
-                </div>
+                 <li class="nav-item">
+                     <div style="margin-left: 15px;"><!-- Create a method in which it will print out new recipe in the mainpage-->
+                         <form action="mainpage.jsp" method="post" class="form-inline my-2 my-lg-0">
+                             <%--@declare id="recipelist"--%><input input type="text" name ="recipeSearch" list="recipeList" class="form-control mr-sm-2" placeholder="Search...">
+                             <button class="btn btn-primary" type="submit" name="search">Search</button>
+                         </form>
+                     </div>
             </li>
         </ul>
         <form action="mainpage.jsp" method="post">
@@ -96,6 +96,7 @@
          * Autocomplete search
          **************************************************************************/
         try{
+            System.out.println("test1");
             Connection connection = dbHandler.startConnection();
             out.println("Initial entries in table \"emp\": <br/>");
             Statement stmt = connection.createStatement();
@@ -106,7 +107,7 @@
             }
             rs.close();
             stmt.close();
-            connection.close();
+            dbHandler.closeConnection();
         }
         catch (Exception e){
             e.printStackTrace();
@@ -116,19 +117,22 @@
          **************************************************************************/
         ArrayList<Integer> myFavList = new ArrayList<Integer>();
         try {
+            System.out.print("test2");
             HttpSession sess = request.getSession(false); //use false to use the existing session
             int currentUserID = (int) sess.getAttribute("currentUserID");//this will return id anytime in the session
             Connection connection = dbHandler.startConnection();
             Statement statement = connection.createStatement();
             ResultSet rs_myrecipe = statement.executeQuery("SELECT * FROM recipe NATURAL JOIN myrecipe WHERE account_id='"+currentUserID+"'");
             while(rs_myrecipe.next()){
+
                 //rs_myrecipe.getInt("account_id");
                 myFavList.add(rs_myrecipe.getInt("recipe_id"));
 
             }
             rs_myrecipe.close();
             statement.close();
-            connection.close();
+            dbHandler.closeConnection();
+
 
         }
         catch(Exception e){
@@ -153,6 +157,7 @@
                         ArrayList <Integer> uploadedRecipes = new ArrayList <Integer>();
 
                         try{
+                            System.out.println("test3");
                             Connection connection = dbHandler.startConnection();
                             Statement statement = connection.createStatement();
                             ResultSet rs = statement.executeQuery("SELECT * FROM recipe NATURAL JOIN access");
@@ -164,20 +169,22 @@
 
                             rs.close();
                             statement.close();
-                            connection.close();
+                            dbHandler.closeConnection();
+
                         }
                         catch (Exception e){
                             e.printStackTrace();
                         }
 
                         ArrayList <Integer>  myFavoriteList = new ArrayList<Integer>();
-                        HttpSession sess = request.getSession(false); //use false to use the existing session
-                        String currentUser = (String) sess.getAttribute("currentUserName");//this will return username anytime in the session
-                        int currentUserID = (int) sess.getAttribute("currentUserID");//this will return id anytime in the session
+
                         /**************************************************************************
                          * get all my favorites
                          **************************************************************************/
                         try{
+                            System.out.println("test4");
+                            HttpSession sess = request.getSession(false); //use false to use the existing session
+                            int currentUserID = (int) sess.getAttribute("currentUserID");//this will return id anytime in the session
                             Connection connection = dbHandler.startConnection();
                             Statement statement = connection.createStatement();
                             ResultSet rs = statement.executeQuery("SELECT * FROM recipe NATURAL JOIN myfavorite WHERE account_id='"+currentUserID+"'");
@@ -187,13 +194,21 @@
                             }
                             rs.close();
                             statement.close();
-                            connection.close();
+                            dbHandler.closeConnection();
+
                         }
                         catch (Exception e){
                             e.printStackTrace();
                         }
-                        sess = request.getSession();
-                        sess.setAttribute("myFavoriteList", myFavoriteList);
+                        try{
+                            System.out.println("test5");
+                            HttpSession sess = request.getSession();
+                            sess.setAttribute("myFavoriteList", myFavoriteList);
+                        }
+                        catch (Exception e){
+                            e.printStackTrace();
+                        }
+
 
                         /**************************************************************************
                          * getting owners username
@@ -201,25 +216,42 @@
                         ArrayList <String> OwnersUsernames = new ArrayList <String>();
 
                         try{
+                            System.out.println("test6");
+                            System.out.println("Almost - 1");
+
+
                             Connection connection = dbHandler.startConnection();
+                            System.out.println("Almost - 2");
+
+
+
                             Statement statement = connection.createStatement();
+                            System.out.println("Almost - 3");
                             ResultSet rs = statement.executeQuery("SELECT * FROM account");
+                            System.out.println("Almost - 4");
 
                             int accout_id = 0;
                             String username = "";
 
+                            System.out.println("test6.1");
                             while (rs.next()){
+                                System.out.println("test6.2");
                                 accout_id = rs.getInt("account_id");
+                                System.out.println("test6.3");
                                 username = rs.getString("username");
+                                System.out.println("test6.4");
                                 for (int j = 0; j <  recipeOwners.size(); j++){
                                     if (recipeOwners.get(j) == accout_id){
                                         OwnersUsernames.add(username);
                                     }
                                 }
                             }
+                            System.out.println("test6.3");
+
                             rs.close();
                             statement.close();
-                            connection.close();
+                            dbHandler.closeConnection();
+
                         }
                         catch (Exception e){
                             e.printStackTrace();
@@ -229,6 +261,7 @@
                          * Displaying Recipe
                          **************************************************************************/
                         try {
+                            System.out.println("test7");
                             Connection connection = dbHandler.startConnection();
                             Statement stmt = connection.createStatement();
                             ResultSet rs;
@@ -248,11 +281,16 @@
                             String gotoRecipe = "";
                             String addToFavorites = "";
                             String unAddToFavorites = "";
-
+                            System.out.println("test8");
                             while (rs.next()) {
                                 recipeID = rs.getInt("recipe_id");
                                 recipeName = rs.getString("recipe_name");
+
                                 imagePath = webHandler.getImage(recipeID);
+                                System.out.println("test9 " + imagePath);
+                                System.out.println("test10 " + recipeID);
+                                System.out.println("test11 " + recipeName);
+
                                 if ((index % 4) == 0 || index == 0){
                                     out.println( "<div class=\"row\">\n");
                                 }
@@ -293,11 +331,13 @@
 
                             rs.close();
                             stmt.close();
-                            connection.close();
+                            dbHandler.closeConnection();
+
                         }
                         catch(Exception e) {
                             System.out.println("SQLException caught: " + e.getMessage());
                         }
+
                         /**************************************************************************
                          * Go back to mainpage
                          **************************************************************************/

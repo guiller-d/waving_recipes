@@ -45,12 +45,6 @@
 
     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
-            </li>
         </ul>
         <form action="myrecipe.jsp" method="post">
             <div class="dropdown">
@@ -117,11 +111,10 @@
                                         "             <img src='" + imagePath + "'" + " class=\"card-img-top\" alt=\"...\" width=\"150\" height=\"200\" >\n" +
                                         "               <div class=\"card-body\">\n" +
                                         "                   <h5 class=\"card-title\">'" + recipeName + "'</h5>\n" + "" +
-                                        "                   <footer class=\"blockquote-footer text-right\" style=\"color: green\">Public</footer>" +
                                         "                    <form action=\"/myrecipe\" method=\"post\">\n" +
-                                        "                 <button class=\"btn btn-primary\" type=\"submit\" name='"+delete+"'\" + \">Delete\n" +
-                                        "                 <button class=\"btn btn-primary\" type=\"submit\" name='"+edit+"'\" + \">Edit\n" +
-                                        "            </form>\n"  +
+                                                "                 <button class=\"btn btn-primary\" type=\"submit\" name='"+delete+"'\" + \">Delete\n" +
+                                                "                 <button class=\"btn btn-primary\" type=\"submit\" name='"+edit+"'\" + \">Edit\n" +
+                                                "            </form>\n"  +
                                         "                </div>\n" +
                                         "        </div>\n" +
                                         "    </div>\n");
@@ -135,7 +128,7 @@
                             connection.close();
                         }
                         catch(Exception e) {
-                            System.out.println("SQLException caught: " + e.getMessage());
+                        System.out.println("SQLException caught: " + e.getMessage());
                         }
 
                         /**************************************************************************

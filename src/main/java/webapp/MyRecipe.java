@@ -8,13 +8,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.Statement;
 
 
 //TODO: CHECK RECIPE AND ACCOUNT ID DIDN;T MATCH
-@WebServlet (name="myrecipe")
+@WebServlet(name="myrecipe")
 public class MyRecipe extends HttpServlet {
 
     WebHandler webHandler = new WebHandler();
@@ -29,7 +31,6 @@ public class MyRecipe extends HttpServlet {
                 recipeID = index;
                 break;
             }
-
             if (request.getParameter("edit"+String.valueOf(index)) != null){
                 recipeID = index;
                 break;
@@ -61,15 +62,29 @@ public class MyRecipe extends HttpServlet {
         }
         if (request.getParameter("edit" + recipeID) != null){
 
+
             try{
 
+                HttpSession sess = request.getSession();
+
+                Connection connection = dbHandler.startConnection();
+                Statement stmt = connection.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT * FROM recipe WHERE recipe_id='"+recipeID+"'");
+                rs.next();
+
+                sess.setAttribute("editRecipeName", rs.getString("recipe_name"));
+                sess.setAttribute("editRecipeStep", rs.getString("step"));
+                sess.setAttribute("editRecipeID", recipeID);
+                rs.close();
+                stmt.close();
+                connection.close();
             }
-            catch (Exception e){
+            catch(Exception e){
                 e.printStackTrace();
             }
-
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/editrecipe.jsp");
-            dispatcher.forward(request,response);
+            response.sendRedirect("/editrecipe.jsp");
+            //RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/editrecipe.jsp");
+            //dispatcher.forward(request,response);
         }
 
 

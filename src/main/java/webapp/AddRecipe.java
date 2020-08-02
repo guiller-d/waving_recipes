@@ -7,7 +7,6 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FilenameUtils;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,7 +38,6 @@ public class AddRecipe extends HttpServlet {
         String foodType =  "";//request.getParameter("addFoodType");
         int recipeID = 0;
         String imageFilename = "";
-
 
         boolean isMultipart = ServletFileUpload.isMultipartContent(request);
         if (!isMultipart) {
@@ -101,37 +99,37 @@ public class AddRecipe extends HttpServlet {
         /*********************************************************************
          * Insert Recipe to Database
          *********************************************************************/
-        try {
-            Connection connection = dbHandler.startConnection();
-            dbHandler.insertRecipeToDB(recipeName, recipeStep, 0);
-            dbHandler.closeConnection();
-        } catch (Exception e) {
+         try {
+             Connection connection = dbHandler.startConnection();
+             dbHandler.insertRecipeToDB(recipeName, recipeStep, 0);
+             dbHandler.closeConnection();
+         } catch (Exception e) {
             e.printStackTrace();
-        }
-        /*********************************************************************
+         }
+         /*********************************************************************
          * Insert Account Access to the Recipe
          *********************************************************************/
-        try {
-            HttpSession sess = request.getSession(false); //use false to use the existing session
-            int currentUserID = (int) sess.getAttribute("currentUserID");//this will return id anytime in the session
-            Connection connection = dbHandler.startConnection();
-            dbHandler.insertMyAccessToDB(currentUserID, recipeID);
-            dbHandler.closeConnection();
-        } catch (Exception e) {
+         try {
+             HttpSession sess = request.getSession(false); //use false to use the existing session
+             int currentUserID = (int) sess.getAttribute("currentUserID");//this will return id anytime in the session
+             Connection connection = dbHandler.startConnection();
+             dbHandler.insertMyAccessToDB(currentUserID, recipeID);
+             dbHandler.closeConnection();
+         } catch (Exception e) {
             e.printStackTrace();
-        }
+         }
 
-        /*********************************************************************
+         /*********************************************************************
          * Insert Image to Database
          *********************************************************************/
-        try {
-            Connection connection = dbHandler.startConnection();
-            String imagePath = "Images/" + imageFilename;
-            dbHandler.insertRecipeImageToDB(recipeID, imagePath);
-            dbHandler.closeConnection();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+         try {
+             Connection connection = dbHandler.startConnection();
+             String imagePath = "Images/" + imageFilename;
+             dbHandler.insertRecipeImageToDB(recipeID, imagePath);
+             dbHandler.closeConnection();
+         } catch (Exception e) {
+             e.printStackTrace();
+         }
         response.sendRedirect("/myrecipe.jsp");
 
     }

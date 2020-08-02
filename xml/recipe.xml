@@ -3,7 +3,7 @@
     <recipe>
         <recipeName>Spicy Chicken Burger</recipeName>
         <step>
-            Step 1: Make the Frank’s® Red Hot lime crema in a small bowl, whisk together the sour cream,
+            Step 1: Make the Franks® Red Hot lime crema in a small bowl, whisk together the sour cream,
                     Frank’s® Red Hot Sauce, lime juice and zest, and salt.
             Step 2: Set aside. Crema can be made up to a week in advance, stored in an airtight container in the refrigerator
             Step 3: In a large bowl, combine the ground chicken, fresno chiles, Frank’s RedHot® Sauce, salt, garlic powder,
@@ -181,5 +181,19 @@
         </step>
         <privacy>1</privacy>
     </recipe>
+    <recipe>
+        <recipeName>Chicken Wings</recipeName>
+        <step>
+            1. Preheat oven to 425°F. Dab wings with paper towels until completely dry.
+            2. Toss wings with flour, salt and pepper. Remove any excess flour and brush with olive oil (or use an olive oil spray).
+            3. Line a pan with foil and then place parchment paper on top (you may need 2 pans) and bake 35 minutes turning at 20 minutes.
+            4. Meanwhile, combine sauce ingredients in a small pan. Bring to a boil, reduce heat and simmer about 10 minutes or until slightly
+                thickened and sauce coats the back of a spoon.
+            5. Take wings from oven, toss with sauce and return to the oven for 10 minutes, turning after 5 minutes.
+            6. Allow to cool 10 minutes. As the sauce cools, it thickens. Stir the wings every few minutes to coat in the sauce as it thickens.
+        </step>
+    <privacy>1</privacy>
+    </recipe>
+
 
 </recipes>

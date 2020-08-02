@@ -91,7 +91,9 @@ public class WebHandler {
     public boolean isDBReady(){
         try{
             if (databaseReady == false){
+                System.out.println("Initializing Database");
                 controller.initializedDB();
+                System.out.println("Finished Initializing Database");
                 if (controller.isComplete() == true){
                     databaseReady = true;
                     System.out.println("Database created");
@@ -159,9 +161,9 @@ public class WebHandler {
                 rs_account.next();
                 username_DB = rs_account.getString("username");
                 if (username.compareTo(username_DB) == 0){
-                    if (validatePassword(password) == true){
-                        returnID = rs_account.getInt("account_id");
-                    }
+                   if (validatePassword(password) == true){
+                       returnID = rs_account.getInt("account_id");
+                   }
 
                 }
                 statement.close();
@@ -234,7 +236,7 @@ public class WebHandler {
     }
     public Date getDateToday(){
         java.util.Date now = new java.util.Date();
-        return new java.sql.Date(now.getTime());
+        return new Date(now.getTime());
     }
 
     /*src: https://www.geeksforgeeks.org/sha-256-hash-in-java/*/

@@ -4,6 +4,7 @@ public class Account {
     private String username;
     private int account_id;
     private int login_status;
+    private MyRecipe myRecipe = new MyRecipe();
 
     public Account(){
         this.username = "N/E";
@@ -33,6 +34,36 @@ public class Account {
     public int getLogin_status() {
 
         return login_status;
+    }
+    public void setMyRecipe(int recipeID){
+        myRecipe.setRecipe_id(recipeID);
+    }
+    public void setDatePosted(String datePosted){
+        myRecipe.setDatePosted(datePosted);
+    }
+    public int getMyRecipe(){
+        return myRecipe.getRecipe_id();
+    }
+    public String getDatePosted(){
+        return myRecipe.getDatePosted();
+    }
+
+    class MyRecipe{
+        int recipe_id = -1;
+        int account_id = -1;
+        String datePosted = "N/E";
+        public void setRecipe_id(int recipe_id){
+            this.recipe_id = recipe_id;
+        }
+        public void setDatePosted(String date){
+            datePosted = date;
+        }
+        public int getRecipe_id(){
+            return this.recipe_id;
+        }
+        public String getDatePosted(){
+            return this.datePosted;
+        }
     }
 
 }

@@ -1,7 +1,6 @@
 package controller;
 
 import java.sql.*;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
 public class DBHandler {
@@ -14,11 +13,12 @@ public class DBHandler {
 
     }
     public void closeConnection() throws SQLException {
-        connection.close();
+        this.connection.close();
     }
     public Connection startConnection() throws Exception {
 
         try{
+
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/cookingRecipe?autoReconnect=true&useSSL=false", user, password);
 
         }
@@ -92,18 +92,27 @@ public class DBHandler {
         statement = connection.createStatement();
         statement.execute(createSql);
 
-
         // Create access  table
         createSql = "CREATE TABLE IF NOT EXISTS access (account_id INT NOT NULL, "
                 + " recipe_id INT NOT NULL)";
+        statement = connection.createStatement();
+        statement.execute(createSql);
 
         // Create following  table
         createSql = "CREATE TABLE IF NOT EXISTS following (account_id INT NOT NULL, "
                 + " follower_id INT NOT NULL)";
+        statement = connection.createStatement();
+        statement.execute(createSql);
 
+        System.out.println("Was hereasdasdasdasdasdasdasd");
+        // Create myfavorite  table
+        createSql = "CREATE TABLE IF NOT EXISTS myfavorite (account_id INT NOT NULL, "
+                + " recipe_id INT NOT NULL)";
 
         statement = connection.createStatement();
         statement.execute(createSql);
+
+
         statement.close();// Close connectionconnection.close();}}
     }
     public void insertAccountToDB(String username, int login) throws Exception {
@@ -124,7 +133,7 @@ public class DBHandler {
     public void insertCommentToDB(int account_id, int recipe_id, String username, String text, String date_posted) throws Exception {
 
         LocalDate localDate = LocalDate.parse(date_posted);
-        java.util.Date date = java.sql.Date.valueOf(localDate);
+        java.util.Date date = Date.valueOf(localDate);
 
         //   Connection connection = startConnection();
         String insertSql = "INSERT IGNORE INTO comment (account_id, recipe_id, username, text, date_posted) " + "VALUES ('"+account_id+"', '"+recipe_id+"','"+username+"', '"+text+"', '"+date+"')";
@@ -159,7 +168,7 @@ public class DBHandler {
     public void insertPasswordToDB(int accountID, String password, String hashPassword, String lastUpdate) throws Exception {
 
         LocalDate localDate = LocalDate.parse(lastUpdate);
-        java.util.Date date = java.sql.Date.valueOf(localDate);
+        java.util.Date date = Date.valueOf(localDate);
 
         //  Connection connection = startConnection();
         String insertSql = "INSERT IGNORE INTO password (account_id, password, hash_password, last_update) " + "VALUES ('"+accountID+"', '"+password+"', '"+hashPassword+"', '"+date+"')";
@@ -170,21 +179,10 @@ public class DBHandler {
     public void insertPostToDB(int accountID, String date_posted) throws Exception {
 
         LocalDate localDate = LocalDate.parse(date_posted);
-        java.util.Date date = java.sql.Date.valueOf(localDate);
+        java.util.Date date = Date.valueOf(localDate);
 
         //   Connection connection = startConnection();
         String insertSql = "INSERT IGNORE INTO post (account_id, date_posted) " + "VALUES ('"+accountID+"', '"+date+"')";
-        Statement statement = connection.createStatement();
-        statement.execute(insertSql);
-        statement.close();
-    }
-    public void insertMyRecipeToDB(int accountID, int recipeID, String date_posted) throws Exception {
-
-        LocalDate localDate = LocalDate.parse(date_posted);
-        java.util.Date date = java.sql.Date.valueOf(localDate);
-
-        //   Connection connection = startConnection();
-        String insertSql = "INSERT IGNORE INTO myrecipe (account_id, recipe_id, date_posted) " + "VALUES ('"+accountID+"','"+recipeID+"', '"+date+"')";
         Statement statement = connection.createStatement();
         statement.execute(insertSql);
         statement.close();
@@ -202,6 +200,15 @@ public class DBHandler {
 
         //   Connection connection = startConnection();
         String insertSql = "INSERT IGNORE INTO following (account_id, follower_id) " + "VALUES ('"+accountID+"','"+follower_id+"')";
+        Statement statement = connection.createStatement();
+        statement.execute(insertSql);
+        statement.close();
+    }
+
+    public void insertMyFavoriteToDB(int accountID, int recipeID) throws Exception {
+
+        //   Connection connection = startConnection();
+        String insertSql = "INSERT IGNORE INTO myfavorite (account_id, recipe_id) " + "VALUES ('"+accountID+"','"+recipeID+"')";
         Statement statement = connection.createStatement();
         statement.execute(insertSql);
         statement.close();

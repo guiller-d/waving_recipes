@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
-  User: mina8
-  Date: 7/25/2020
-  Time: 11:36 PM
+  User: guillerdalit
+  Date: 8/1/20
+  Time: 4:40 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -33,32 +33,29 @@
 
         <div class="col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content main-background">
 
-            <form action = "/addrecipe" method = "post" enctype = "multipart/form-data">
+            <form action = "/editrecipe" method = "post">
 
                 <div>
                     <label><b><em>Recipe Name</em></b></label>
-                    <input type="text" placeholder="Enter Recipe Name" name="addRecipeName" required>"
+                    <%
+                        HttpSession sess = request.getSession(false); //use false to use the existing session
+                        String editRecipeName = (String) sess.getAttribute("editRecipeName");//this will return id anytime in the session
+                        out.println("<input type=\"text\" placeholder='"+editRecipeName+"' name=\"editingRecipeName\" width =\"30\" />");
+                    %>
                 </div>
-                <div>
-                    <label><b><em>Recipe Type</em></b></label>
-                    <select name="addFoodType">
-
-                    </select>
-                </div>
-
-                <div>
-                    <h3> Choose File to Upload in Server </h3>
-                    <input type="file" name="dataFile" id="fileChooser"/><br/><br/>
-                </div>
-
                 <div>
                     <label><b><em>Recipe Step</em></b></label>
                     <img src="./Images/tomato.jpg" width="36px;">
                 </div>
                 <div>
-                    <textarea name="addRecipeStep" rows="15" cols="100"></textarea>
+                    <%
+                        sess = request.getSession(false); //use false to use the existing session
+                        String editRecipeStep = (String) sess.getAttribute("editRecipeStep");//this will return id anytime in the session
+                        out.println("<textarea name=\"editingRecipeStep\" rows=\"15\" cols=\"100\" > '"+editRecipeStep+"'</textarea>");
+                    %>
+
                 </div>
-                <input type="submit" value="Upload Recipe" class="btn btn-primary"/>
+                <button type = "submit" name="editButton">Edit</button>
             </form>
 
 

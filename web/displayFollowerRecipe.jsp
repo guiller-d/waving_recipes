@@ -47,10 +47,10 @@
     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
+
             </li>
         </ul>
         <form action="displayFollowerRecipe.jsp" method="post">
@@ -123,7 +123,6 @@
                                     "             <img src='" + imagePathList.get(index) + "'" + " class=\"card-img-top\" alt=\"...\" width=\"150\" height=\"200\" >\n" +
                                     "               <div class=\"card-body\">\n" +
                                     "                   <h5 class=\"card-title\">'" + recipeNameList.get(index) + "'</h5>\n" + "" +
-                                    "                   <footer class=\"blockquote-footer text-right\" style=\"color: green\">Public</footer>" +
                                     "                </div>\n" +
                                     "        </div>\n" +
                                     "    </div>\n");
@@ -174,7 +173,7 @@
                             response.sendRedirect("/follower.jsp");
                             //request.getRequestDispatcher("/addRecipe.jsp").forward(request, response);
                         }
-                    %>
+    %>
 
                 </div>
             </div>

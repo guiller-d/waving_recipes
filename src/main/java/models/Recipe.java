@@ -1,8 +1,5 @@
 package models;
 
-import javax.swing.*;
-import java.awt.*;
-
 public class Recipe {
 
     private int recipeID;
@@ -17,10 +14,10 @@ public class Recipe {
         this.recipeImage = new RecipeImage();
         this.ingredient = new Ingredient();
         this.foodType = new FoodType();
-        recipeID = -1;
-        recipeName = "N/E";
-        recipeSteps = "N/E";
-        privacy = -1;
+          recipeID = -1;
+          recipeName = "N/E";
+          recipeSteps = "N/E";
+          privacy = -1;
     }
 
     public void setRecipeID(int recipeID) {
@@ -77,7 +74,6 @@ public class Recipe {
     public String getFoodType(){
         return this.foodType.getType();
     }
-
 
 
     class RecipeImage {

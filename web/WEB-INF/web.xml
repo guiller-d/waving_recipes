@@ -94,6 +94,17 @@
         <url-pattern>/myfavorite</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>editrecipe</servlet-name>
+        <servlet-class>webapp.EditRecipe</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>editrecipe</servlet-name>
+        <url-pattern>/editrecipe</url-pattern>
+    </servlet-mapping>
+
+
 
 
 

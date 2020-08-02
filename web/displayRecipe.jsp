@@ -122,10 +122,6 @@
 
 
         <div class="col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content main-background">
-            <form action=\"/mainpage\" method=\"post\">
-                <button class="btn btn-primary" type="submit" name="addToFav">Add to Favorites</button>
-                </button>
-            </form>
 
             <form>
                 <div class="text-center">

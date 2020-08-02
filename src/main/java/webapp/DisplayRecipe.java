@@ -9,16 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 
 @WebServlet(name="displayRecipe")
-public class DisplayRecipe extends HttpServlet{
+public class DisplayRecipe extends HttpServlet {
 
     private  static int recipeID;
     private  static String recipeName;
@@ -60,8 +55,5 @@ public class DisplayRecipe extends HttpServlet{
     }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-    }
-    public void getRecipe(){
-        System.out.println("getting recipe");
     }
 }

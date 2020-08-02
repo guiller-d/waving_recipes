@@ -1,8 +1,5 @@
 package webapp;
 
-import controller.Controller;
-import controller.DBHandler;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,7 +10,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 
-
 @WebServlet(name="login")
 public class Login extends HttpServlet {
 
@@ -21,7 +17,6 @@ public class Login extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        PrintWriter out = response.getWriter();
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         try{
@@ -33,6 +28,7 @@ public class Login extends HttpServlet {
                         int id = webHandler.getAccountID(username, password);
                         sess.setAttribute("currentUserID", id);
                         sess.setAttribute("currentUserName", username);
+                        System.out.print("here in login");
                         response.sendRedirect("/mainpage.jsp");
                     }
                     else{
@@ -51,10 +47,8 @@ public class Login extends HttpServlet {
         }catch (Exception e){
             e.printStackTrace();
         }
-
     }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 
     }
 

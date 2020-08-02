@@ -5,14 +5,11 @@ import controller.DBHandler;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
-import javax.servlet.jsp.JspWriter;
-import javax.swing.*;
-import java.awt.*;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -33,11 +30,17 @@ public class Mainpage extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
-
-        HttpSession sess = request.getSession(false); //use false to use the existing session
-        String currentUser = (String) sess.getAttribute("currentUserName");//this will return username anytime in the session
-        int currentUserID = (int) sess.getAttribute("currentUserID");//this will return id anytime in the session
+        HttpSession sess;
+        String currentUser = "";
+        int currentUserID = 0;
+       try{
+           sess = request.getSession(false); //use false to use the existing session
+            currentUser = (String) sess.getAttribute("currentUserName");//this will return username anytime in the session
+            currentUserID = (int) sess.getAttribute("currentUserID");//this will return id anytime in the session
+       }
+       catch (Exception e){
+           e.printStackTrace();
+       }
         request.setAttribute("currentUserName", currentUser);
         request.setAttribute("currentUserID", currentUserID);
 
@@ -45,7 +48,7 @@ public class Mainpage extends HttpServlet {
         int recipeID = 0;
 
         int recipeCount = webHandler.getRecipeCount();
-        for (int index = 0; index < recipeCount; index++){
+        for (int index = 0; index <= recipeCount; index++){
             if (request.getParameter("gotoRecipe" + String.valueOf(index)) != null){
                 recipeID = index;
                 break;
@@ -61,6 +64,8 @@ public class Mainpage extends HttpServlet {
         }
         //if the user click gotoRecipe
         if (request.getParameter("gotoRecipe" + recipeID) != null){
+            sess = request.getSession(); //use false to use the existing session
+            sess.setAttribute("currentRecipeId",recipeID);//this will return id anytime in the session
             getRecipeComments(recipeID, request);
             displayRecipe(recipeID, request);
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/displayRecipe.jsp");
@@ -79,7 +84,6 @@ public class Mainpage extends HttpServlet {
                 e.printStackTrace();
             }
             sess = request.getSession(false); //use false to use the existing session
-            System.out.println("addToFavorites");
             String heartPath = "Images/heart-filled-red.png";
             request.setAttribute("heartPath",heartPath);
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/mainpage.jsp");
@@ -109,7 +113,7 @@ public class Mainpage extends HttpServlet {
 
     }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //System.out.println("It works");
+
         String text = "some text";
         response.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
         response.setCharacterEncoding("UTF-8"); // You want world domination, huh?

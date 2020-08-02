@@ -7,45 +7,39 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
 
 
 /*
- * TODO: Update Documents,
- *  Functional Requirements
- *  ERD Diagram to Schema
- *  Implementation
- *  Step by step of running the project (TEAM#_Project.zip)
- *  A lot of instruction to run the project (include images)
- *
- * */
+* TODO: Update Documents,
+*  Functional Requirements
+*  ERD Diagram to Schema
+*  Implementation
+*  Step by step of running the project (TEAM#_Project.zip)
+*  A lot of instruction to run the project (include images)
+*
+* */
 public class Controller extends HttpServlet {
 
     boolean dbIsSetup = false;
     DBHandler dbHandler = new DBHandler();
+    
+    String accessPath = "/Users/guillerdalit/IdeaProjects/cs157a-cr-idea-finished/xml/access.xml";
+    String accountPath = "/Users/guillerdalit/IdeaProjects/cs157a-cr-idea-finished/xml/account.xml";
+    String commentPath = "/Users/guillerdalit/IdeaProjects/cs157a-cr-idea-finished/xml/comment.xml";
+    String foodTypepath = "/Users/guillerdalit/IdeaProjects/cs157a-cr-idea-finished/xml/food_type.xml";
+    String imagePath = "/Users/guillerdalit/IdeaProjects/cs157a-cr-idea-finished/xml/image.xml";
+    String ingredientPath = "/Users/guillerdalit/IdeaProjects/cs157a-cr-idea-finished/xml/ingredient.xml";
+    String passwordPath = "/Users/guillerdalit/IdeaProjects/cs157a-cr-idea-finished/xml/password.xml";
+    String postPath = "/Users/guillerdalit/IdeaProjects/cs157a-cr-idea-finished/xml/post.xml";
+    String recipePath = "/Users/guillerdalit/IdeaProjects/cs157a-cr-idea-finished/xml/recipe.xml";
+    String followingPath = "/Users/guillerdalit/IdeaProjects/cs157a-cr-idea-finished/xml/following.xml";
+    String favoritePath = "/Users/guillerdalit/IdeaProjects/cs157a-cr-idea-finished/xml/myfavorites.xml";
 
-    String accountPath = "/Users/guillerdalit/IdeaProjects/cookingrecipe/xml/account.xml";
-    String commentPath = "/Users/guillerdalit/IdeaProjects/cookingrecipe/xml/comment.xml";
-    String foodTypepath = "/Users/guillerdalit/IdeaProjects/cookingrecipe/xml/food_type.xml";
-    String imagePath = "/Users/guillerdalit/IdeaProjects/cookingrecipe/xml/image.xml";
-    String ingredientPath = "/Users/guillerdalit/IdeaProjects/cookingrecipe/xml/ingredient.xml";
-    String passwordPath ="/Users/guillerdalit/IdeaProjects/cookingrecipe/xml/password.xml";
-    String postPath = "/Users/guillerdalit/IdeaProjects/cookingrecipe/xml/post.xml";
-    String recipePath = "/Users/guillerdalit/IdeaProjects/cookingrecipe/xml/recipe.xml";
-    String accessPath = "/Users/guillerdalit/IdeaProjects/cookingrecipe/xml/access.xml";
-    String followingPath = "/Users/guillerdalit/IdeaProjects/cookingrecipe/xml/following.xml";
-    String favoritePath = "/Users/guillerdalit/IdeaProjects/cookingrecipe/xml/myfavorites.xml";
 
     //Dummy variables
     Account new_account = null;
@@ -69,7 +63,9 @@ public class Controller extends HttpServlet {
         Connection connection = dbHandler.startConnection();
         if (connection!= null){
             //Create Tables
+            System.out.println("Is here");
             dbHandler.createTables(connection);
+            System.out.println("Is fassing");
             //Insert values to tables using XML
             readXML(accountPath, "account");
             readXML(commentPath, "comment");
@@ -153,6 +149,7 @@ public class Controller extends HttpServlet {
                                 insertRecipe(element, new_recipe);
                             }
                             if (new_access != null){
+                                System.out.println("here1");
                                 insertMyAccess(element, new_access);
                             }
                             if (new_follower != null){
@@ -166,14 +163,14 @@ public class Controller extends HttpServlet {
                         }
                     }
                 }
-                new_account = null;
-                new_comment = null;
-                new_recipeType = null;
-                new_recipeImage = null;
-                new_recipeIngredient = null;
-                new_password = null;
-                new_post = null;
-                new_recipe = null;
+                 new_account = null;
+                 new_comment = null;
+                 new_recipeType = null;
+                 new_recipeImage = null;
+                 new_recipeIngredient = null;
+                 new_password = null;
+                 new_post = null;
+                 new_recipe = null;
                 new_access = null;
                 new_favorite = null;
                 new_follower = null;
@@ -317,6 +314,7 @@ public class Controller extends HttpServlet {
             new_access.setRecipe_id(Integer.parseInt(element.getTextContent()));
         }
         if (new_access.getAccount_id() != -1 && new_access.getRecipe_id() != -1){
+            System.out.println("here2");
             dbHandler.insertMyAccessToDB(new_access.getAccount_id(), new_access.getRecipe_id());
         }
 
@@ -329,7 +327,6 @@ public class Controller extends HttpServlet {
             new_follower.setFollower_id(Integer.parseInt(element.getTextContent()));
         }
         if (new_follower.getAccountID() != -1 && new_follower.getFollower_id() != -1){
-            System.out.println("Twice");
             dbHandler.insertFollowingToDB(new_follower.getAccountID(), new_follower.getFollower_id());
         }
     }

@@ -46,12 +46,6 @@
 
     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
-            </li>
         </ul>
         <form action="follower.jsp" method="post">
             <div class="dropdown">
@@ -97,7 +91,6 @@
                             statement.close();
                             connection.close();
                             for (int index = 0; index <followerIDList.size(); index++ ){
-                                System.out.print(followerNameList.get(index) + " "+ followerIDList.get(index));
 
                                 out.println("<li class=\"list-group-item\">\n" +
                                         "      <form action=\"/follower\" method=\"post\">\n" +
