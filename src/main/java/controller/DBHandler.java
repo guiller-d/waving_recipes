@@ -78,6 +78,7 @@ public class DBHandler {
         statement = connection.createStatement();
         statement.execute(createSql);
 
+        System.out.println("Was asdsd");
         // Create comment table
         createSql = "CREATE TABLE IF NOT EXISTS comment (account_id INT NOT NULL, "
                 + " recipe_id INT NOT NULL, username VARCHAR(32) NOT NULL, text VARCHAR(300) NOT NULL, "

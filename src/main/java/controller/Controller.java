@@ -159,7 +159,6 @@ public class Controller extends HttpServlet {
                                 insertMyNewFavorite(element, new_favorite);
                             }
 
-
                         }
                     }
                 }
