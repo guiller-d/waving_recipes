@@ -8,17 +8,17 @@ Spring 2020: CS-157A Sec 80
 This project will be a database that collects the users’ recipes. The purpose of this project is to provide an efficient environment for people for their cooking recipes and save their recipes for their future needs. 
 
 ### Hardware and software used:
-IntelliJ IDEA Ultimate Edition Platform (Coding)
-Git & Github ( Version-Control)
-Apache Tomcat (Web-Server)
-MySql Workbench (Database)
-Mysql-connector-java-5.1.49-bin.jar)
-[Commons-fileupload-1.4.jar](http://commons.apache.org/proper/commons-fileupload/download_fileupload.cgi)
-[Commons-io-2.7.jar](https://commons.apache.org/proper/commons-io/download_io.cgi)
+* IntelliJ IDEA Ultimate Edition Platform (Coding)
+* Git & Github ( Version-Control)
+* Apache Tomcat (Web-Server)
+* MySql Workbench (Database)
+* Mysql-connector-java-5.1.49-bin.jar)
+* [Commons-fileupload-1.4.jar](http://commons.apache.org/proper/commons-fileupload/download_fileupload.cgi)
+* [Commons-io-2.7.jar](https://commons.apache.org/proper/commons-io/download_io.cgi)
 ### RDMBS
-MySql Workbench
+* MySql Workbench
 ### Application languages
-Java(JDBC), MySql (SQL), CSS, HTML, XML, JavaScript
+* Java(JDBC), MySql (SQL), CSS, HTML, XML, JavaScript
 
 ### Functional Requirements
 The overview of our project is an example of front-end and back-end architecture.
