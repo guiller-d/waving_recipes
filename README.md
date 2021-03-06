@@ -1,9 +1,10 @@
-# Team 7: Mina Lee, Gel Dalit, Sushil Karki cs157a-cr-eclipse-git
-
-Cooking Recipes
-Team 7: Mina Lee, Gel Dalit, Sushil Karki
-Spring 2020: CS-157A Sec 80
-
+# Team 7: Waving Recipes
+### Spring 2020: CS-157A Sec 80 Class Project
+### Contributors
+ * Mina Lee, 
+ * Guiller Dalit
+ *  Sushil Karki 
+ 
 ### Project Overview
 This project will be a database that collects the users’ recipes. The purpose of this project is to provide an efficient environment for people for their cooking recipes and save their recipes for their future needs.
 
